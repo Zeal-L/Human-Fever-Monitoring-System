@@ -2,8 +2,6 @@ import time
 import grovepi
 import math
 import grove_rgb_lcd
-import _thread
-import pages.romTempPage as romTempPage
 
 temp_humiditySensor = 4 #put the sensor to D4
 
@@ -22,11 +20,16 @@ grovepi.pinMode(switchSensor,"INPUT")
 time.sleep(1)
 
 start = False
-
 tempValue,humidityValue = 0,0
 isMove = False
 rotaryAngleValue = 0
 ButtonTrigger = False
+
+def getTempValue():
+    return tempValue
+
+def getHumidityValue():
+    return humidityValue
 
 def temp_humidity():
     global tempValue,humidityValue
@@ -52,23 +55,28 @@ def movement():
     return False
 
 def RotaryAngle():
+    global rotaryAngleValue
     try:
-        return grovepi.analogRead(RotaryAngleSensor)
+        rotaryAngleValue = grovepi.analogRead(RotaryAngleSensor)
+        return rotaryAngleValue
     except IOError:
         print ("Error")
     return -1
     
 def Button():
+    global ButtonTrigger
     try:
-        return grovepi.digitalRead(buttonSensor)==1
+        ButtonTrigger = grovepi.digitalRead(buttonSensor)==1
+        return ButtonTrigger
     except IOError:
         print ("Error")
     return False
         
 def Switch():
+    global start
     try:
-        # print(grovepi.digitalRead(switchSensor))
-        return grovepi.digitalRead(switchSensor)==1
+        start = grovepi.digitalRead(switchSensor)==1
+        return start
     except IOError:
         print ("Error")
     return False
@@ -111,42 +119,5 @@ def screeBacklight():
         grove_rgb_lcd.setRGB(0,0,0)
     backlightCount += 1
 
-
-if __name__ == "__main__":
-    tempValue,humidityValue = temp_humidity()
-    isMove = movement()
-    rotaryAngleValue = RotaryAngle()
-    buttonValue = Button()
-    maxAngle = 1024
-    subAngle = maxAngle/3
-    
-    while True:
-        romTempPage()
-        # start = Switch()
-        # screeBacklight()
-        
-        # if rotaryAngleValue > 0 and rotaryAngleValue < subAngle:
-        #     backLight["r"] = 0
-        #     backLight["g"] = 255
-        #     backLight["b"] = 255
-        #     backLight["type"] = backLightType.normal
-        #     grove_rgb_lcd.setText_norefresh("temp = %.02f C  humidity =%.02f%%"%(tempValue, humidityValue))
-        #     tempValue,humidityValue = temp_humidity()
-        # elif rotaryAngleValue > subAngle and rotaryAngleValue < subAngle*2:
-        #     backLight["r"] = 0
-        #     backLight["g"] = 255
-        #     backLight["b"] = 0
-        #     backLight["type"] = backLightType.normal
-        #     grove_rgb_lcd.setText_norefresh("Is movement: {}".format(isMove))
-        #     isMove = movement()
-        # elif rotaryAngleValue > subAngle*2 and rotaryAngleValue < maxAngle:
-        #     backLight["r"] = 255
-        #     backLight["g"] = 255
-        #     backLight["b"] = 255
-        #     backLight["type"] = backLightType.normal
-        #     grove_rgb_lcd.setText_norefresh("button: {}".format(buttonValue))
-        #     buttonValue = Button()
-        # rotaryAngleValue = RotaryAngle()
-        # time.sleep(0.1)
         
     
