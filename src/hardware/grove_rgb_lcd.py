@@ -21,7 +21,7 @@
 # 	Doesn't support anything clever, cursors or anything
 
 import time,sys
-import symbol
+# import MySymbol
 
 if sys.platform == 'uwp':
     import winrt_smbus as smbus
@@ -110,13 +110,19 @@ def create_char(location, pattern):
     textCommand(0x40 | (location << 3))
     bus.write_i2c_block_data(DISPLAY_TEXT_ADDR, 0x40, pattern)
 
+create_char(0, [
+    0b00001,
+    0b00001,
+    0b00001,
+    0b00101,
+    0b01101,
+    0b11111,
+    0b01100,
+    0b00100
+])
+
 # example code
 if __name__=="__main__":
-    create_char(0, symbol.zero_r)
-    create_char(1, symbol.smiley_pattern)
-    create_char(2, symbol.sed_pattern)
-    create_char(3, symbol.left_arrow)
-    create_char(4, symbol.right_arrow)
     setText("Hello world\nThis is an LCD test")
     setRGB(0,128,64)
     time.sleep(2)

@@ -1,18 +1,23 @@
-import hardware
-from pages import RomTempPage as RTP
+from src.hardware import hardware
+from src.pages import romTempPage as romTempPage
+from src.pages import mainPage as mainPage
 
 if __name__ == "__main__":
     hardware.temp_humidity()
-    isMove = hardware.movement()
-    rotaryAngleValue = hardware.RotaryAngle()
+    hardware.movement()
+    hardware.RotaryAngle()
     buttonValue = hardware.Button()
     maxAngle = 1024
     subAngle = maxAngle/3
-    
+    currPage = mainPage.mainPage()
     while True:
-        print(hardware.tempValue,hardware.humidityValue)
-        rm = RTP.RomTempPage()
-        rm.showText()
+        # print(hardware.tempValue,hardware.humidityValue)
+        # rm = romTempPage.RomTempPage()
+        # rm.showText()
+        currPage.onRotary(hardware.rotaryAngleValue)
+        hardware.temp_humidity()
+        hardware.movement()
+        hardware.RotaryAngle()
         # start = Switch()
         # screeBacklight()
         

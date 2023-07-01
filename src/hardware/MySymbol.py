@@ -1,4 +1,4 @@
-heart_pattern = [
+heartPattern = [
     0b00000,
     0b01010,
     0b11111,
@@ -8,7 +8,7 @@ heart_pattern = [
     0b00000,
     0b00000
 ]
-smiley_pattern = [
+smileyPattern = [
     0b00000,
     0b00000,
     0b01010,
@@ -18,7 +18,7 @@ smiley_pattern = [
     0b01110,
     0b00000
 ]
-sed_pattern = [
+sedPattern = [
     0b00000,
     0b00000,
     0b01010,
@@ -28,7 +28,7 @@ sed_pattern = [
     0b10001,
     0b00000
 ]
-left_arrow = [
+leftArrow = [
     0b00000,
     0b00100,
     0b01100,
@@ -38,7 +38,7 @@ left_arrow = [
     0b00000,
     0b00000
 ]
-right_arrow = [
+rightArrow = [
     0b00000,
     0b00100,
     0b00110,
@@ -49,15 +49,15 @@ right_arrow = [
     0b00000
 ]
 
-right_arrow = [
-    0b00000,
-    0b00100,
-    0b00110,
+enterSymbol = [
+    0b00001,
+    0b00001,
+    0b00001,
+    0b00101,
+    0b01101,
     0b11111,
-    0b00110,
-    0b00100,
-    0b00000,
-    0b00000
+    0b01100,
+    0b00100
 ]
 
 zero = [

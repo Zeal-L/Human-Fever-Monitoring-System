@@ -25,6 +25,8 @@ isMove = False
 rotaryAngleValue = 0
 ButtonTrigger = False
 
+MAX_ROTARY_ANGLE = 1024
+
 def getTempValue():
     return tempValue
 
@@ -118,6 +120,3 @@ def screeBacklight():
     else:
         grove_rgb_lcd.setRGB(0,0,0)
     backlightCount += 1
-
-        
-    
