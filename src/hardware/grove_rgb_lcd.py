@@ -73,6 +73,9 @@ def setText(text):
         count += 1
         bus.write_byte_data(DISPLAY_TEXT_ADDR,0x40,ord(c))
 
+def clearText():
+    setText("")
+
 #Update the display without erasing the display
 def setText_norefresh(text):
     textCommand(0x02) # return home

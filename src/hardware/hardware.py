@@ -11,12 +11,16 @@ grovepi.pinMode(moveSensor,"INPUT")
 RotaryAngleSensor = 2 #put the sensor to A0
 grovepi.pinMode(RotaryAngleSensor,"INPUT")
 
-buttonSensor = 2 #put the sensor to D2
+buttonSensor = 3 #put the sensor to D2
 grovepi.pinMode(buttonSensor,"INPUT")
+
+buttonLedSensor = 2 #put the sensor to D2
+grovepi.pinMode(buttonLedSensor,"OUTPUT")
 
 switchSensor = 7 #put the sensor to D7
 grovepi.pinMode(switchSensor,"INPUT")
 
+buzzSensor = 6 #put the sensor to D0
 time.sleep(1)
 
 start = False
@@ -50,7 +54,7 @@ def movement():
     try:
         # return grovepi.digitalRead(moveSensor)==1
         global isMove
-        isMove = grovepi.digitalRead(moveSensor)==1
+        isMove = grovepi.digitalRead(moveSensor) == 1
         return isMove
     except IOError:
         print ("Error")
