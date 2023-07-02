@@ -10,3 +10,6 @@ class Page(ABC):
     @abstractmethod
     def showText(self):
         return "did not implement showText()"
+    
+    def showTextChangable(self):
+        return False

@@ -72,7 +72,7 @@ def RotaryAngle():
 def Button():
     global ButtonTrigger
     try:
-        ButtonTrigger = grovepi.digitalRead(buttonSensor)==1
+        ButtonTrigger = grovepi.digitalRead(buttonSensor)==0
         return ButtonTrigger
     except IOError:
         print ("Error")
