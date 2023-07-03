@@ -4,6 +4,7 @@ from src.pages import mainPage as mainPage
 from src.pages import page as page
 import src.hardware.OledScreen
 import time
+import _thread
 
 hardware.temp_humidity()
 hardware.movement()
@@ -14,14 +15,17 @@ subAngle = maxAngle/3
 # currPage = mainPage.mainPage()
 page.currentPage = mainPage.mainPage()
 
+def temp_humidity():
+    while True:
+        hardware.movement()
+
 if __name__ == "__main__":
     while True:
-        timeNS = time.time_ns()
-        page.currentPage.onRotary(hardware.rotaryAngleValue)
+        hardware.movement()
         hardware.temp_humidity()
         hardware.movement()
         hardware.RotaryAngle()
+        page.currentPage.onRotary(hardware.rotaryAngleValue)
         if hardware.Button():
             page.currentPage.onButton()
             
-        print("time Cost: ", (time.time_ns() - timeNS) / 1000000, "ms")

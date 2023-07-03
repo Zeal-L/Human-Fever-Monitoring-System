@@ -11,16 +11,9 @@ class mainPage(node.Node):
         pass
 
     
-    def showText(self) -> None:
+    def showText(self, offset: int = 0) -> None:
         grove_rgb_lcd.setText_norefresh("Main Page")
-        node.NodeScreen("/home/pi/project/Resource/home.png", "Home")
-    
-    def onButton(self) -> None:
-        print("mainPage onButton")
-        print(self.currentPage)
-        if isinstance(self.pages[self.currentPage], node.Node):
-            print("mainPage onButton issubclass")
-            OledScreen.clear()
-            page.currentPage = self.pages[self.currentPage]
-            page.currentPage.currentPage = -1
+        node.NodeScreen("/home/pi/project/Resource/home.png", "Home", offset)
+        OledScreen.disp.image(OledScreen.image)
+        OledScreen.disp.display()
             

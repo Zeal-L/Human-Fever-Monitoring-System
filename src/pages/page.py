@@ -8,7 +8,7 @@ class Page(ABC):
         pass
 
     @abstractmethod
-    def showText(self):
+    def showText(self, offset: int = 0):
         return "did not implement showText()"
     
     def showTextChangable(self):

@@ -9,7 +9,7 @@ class RomTempPage(page.Page):
         print(hardware.tempValue)
         pass
 
-    def showText(self):
+    def showText(self, offset: int = 0):
         grove_rgb_lcd.setText_norefresh("temp = %.02f C  humidity = %.02f%%"%(hardware.getTempValue(), hardware.getHumidityValue()))
         OledScreen.clear()
         icon = Image.open("/home/pi/project/Resource/temp.png")
@@ -17,7 +17,7 @@ class RomTempPage(page.Page):
         icon_width, icon_height = icon.size
         icon_x = 13
         icon_y = (OledScreen.height - icon_height) // 2 - 15  # Adjust the value as needed
-        OledScreen.image.paste(icon, (icon_x, icon_y))
+        OledScreen.image.paste(icon, (icon_x-offset, icon_y))
 
         # Draw an icon
         icon = Image.open("/home/pi/project/Resource/humid.png")
@@ -25,7 +25,7 @@ class RomTempPage(page.Page):
         icon_width, icon_height = icon.size
         icon_x = 10
         icon_y = (OledScreen.height - icon_height) // 2 + 15  # Adjust the value as needed
-        OledScreen.image.paste(icon, (icon_x, icon_y))
+        OledScreen.image.paste(icon, (icon_x-offset, icon_y))
 
         # Load a default font
         font = ImageFont.load_default()
@@ -37,18 +37,18 @@ class RomTempPage(page.Page):
         temperature_width, temperature_height = font.getsize(temperature)
         temperature_x = OledScreen.width - temperature_width - 48
         temperature_y = (OledScreen.height - temperature_height) // 2 - 15  # Adjust the value as needed
-        OledScreen.draw.text((temperature_x, temperature_y), temperature, font=font, fill=255)
+        OledScreen.draw.text((temperature_x-offset, temperature_y), temperature, font=font, fill=255)
 
         # Display humidity
         humidity = str(hardware.getHumidityValue())
         humidity_width, humidity_height = font.getsize(humidity)
         humidity_x = OledScreen.width - humidity_width - 50
         humidity_y = (OledScreen.height - humidity_height) // 2 + 15  # Adjust the value as needed
-        OledScreen.draw.text((humidity_x, humidity_y), humidity, font=font, fill=255)
+        OledScreen.draw.text((humidity_x-offset, humidity_y), humidity, font=font, fill=255)
         
         
-        OledScreen.disp.image(OledScreen.image)
-        OledScreen.disp.display()
+        # OledScreen.disp.image(OledScreen.image)
+        # OledScreen.disp.display()
 
     def showTextChangable(self):
         return True

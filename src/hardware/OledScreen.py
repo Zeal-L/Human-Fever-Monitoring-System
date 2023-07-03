@@ -26,6 +26,4 @@ print("OledScreen.py: OledScreen initialized")
 
 def clear():
     draw.rectangle((0,0,width,height), outline=0, fill=0)
-    disp.image(image)
-    disp.display()
     print("OledScreen.py: OledScreen cleared")
