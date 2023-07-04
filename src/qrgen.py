@@ -11,9 +11,12 @@ class qrgen:
         img = img.resize((64, 64))
 
         # show the image
+        # change to display on screen
         img.show()
 
 '''
+test code 
+
 qrg = qrgen()
 qrg.generateQR(36.5)
 '''
