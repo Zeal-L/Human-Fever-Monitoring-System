@@ -1,10 +1,10 @@
 import qrcode as qr
 from PIL import Image
 
-class qrgenerator:
+class qrgen:
     
     @staticmethod   
-    def qrgen(temperature):
+    def generateQR(temperature):
         data = 'Your temperature is {}'.format(temperature)
         img = qr.make(data)
 
@@ -14,6 +14,6 @@ class qrgenerator:
         img.show()
 
 '''
-qrg = qrgenerator()
-qrg.qrgen(36.5)
+qrg = qrgen()
+qrg.generateQR(36.5)
 '''
