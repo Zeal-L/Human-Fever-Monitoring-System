@@ -1,5 +1,7 @@
 from src.hardware import hardware, grove_rgb_lcd, OledScreen
 from src.pages import node, page
+from src.storage import readAndWrite
+from src.pages.setting import framePage
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -10,7 +12,8 @@ class FrameNode(node.Node):
     def __init__(self, prevNode: node.Node):
         super().__init__()
         self.pages = [prevNode]
-        self.frame = 5
+        self.frame = readAndWrite.ReadAndWrite.getValue("frame")
+        self.framePage = framePage.FramePage()
         pass
 
     def showText(self, offset: int = 0):
@@ -42,10 +45,17 @@ class FrameNode(node.Node):
         
     def onButton(self) -> None:
         OledScreen.clear()
+        readAndWrite.ReadAndWrite.setValue("frame", self.framePage.frame)
+        self.frame = self.framePage.frame
         page.currentPage = self.pages[0]
         page.currentPage.currentPage = -1
 
     def onRotary(self, rotaryValue: int):
-        pass
+        print(rotaryValue)
+        OledScreen.clear()
+        subAngle = 1024 / 20
+        index = int(rotaryValue / subAngle) + 1
+        self.framePage.frame = index
+        self.framePage.showText()
     
         

@@ -1,1 +1,3 @@
-new_key: new_value1
+password: 1234
+sleep: 0
+frame: 16

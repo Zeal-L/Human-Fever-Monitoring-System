@@ -122,7 +122,7 @@ class Button:
                 
 class Switch:
     pin = 7
-    start = False
+    value = False
     
     lastTime = time.monotonic_ns()
     gapTime = 0
@@ -134,7 +134,7 @@ class Switch:
     def loadValue():
         if time.monotonic_ns() - Switch.lastTime > Switch.gapTime:
             try:
-                Switch.start = grovepi.digitalRead(Switch.pin)==1
+                Switch.value = grovepi.digitalRead(Switch.pin)==1
                 Switch.lastTime = time.monotonic_ns()
             except IOError:
                 print ("Error")
@@ -154,16 +154,15 @@ class Servo:
     
     @staticmethod
     def loadValue():
-        Servo.servo.angle = Servo.currentAngle
+        pass
     
     @staticmethod
     def setAngle(angle):
-        # if angle > 180:
-        #     angle = 180
         angle = angle if angle <= 180 else 180
         angle = angle if angle >= 0 else 0
         angle -= 90
         Servo.currentAngle = angle
+        Servo.servo.angle = Servo.currentAngle
         print("servo angle: ", Servo.currentAngle)
 
 

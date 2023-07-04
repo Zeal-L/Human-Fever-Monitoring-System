@@ -1,6 +1,7 @@
 from src.hardware import hardware, grove_rgb_lcd, OledScreen
 from src.pages import node, page
 from src.pages.setting import passwordPage
+from src.storage import readAndWrite
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -12,7 +13,7 @@ class PasswordNode(node.Node):
         super().__init__()
         self.pages = [prevNode]
         self.passwordPage = passwordPage.PasswordPage()
-        self.oldPassword = "1234"
+        self.oldPassword = readAndWrite.ReadAndWrite.getValue("password")
         self.newPassword = ""
         self.enterStatus = "old"
         self.curretEnter = ""

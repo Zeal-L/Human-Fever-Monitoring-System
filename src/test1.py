@@ -1,5 +1,5 @@
 import unittest
-from src.readAndWrite import ReadAndWrite
+from storage.readAndWrite import ReadAndWrite
 
 class TestReadAndWrite(unittest.TestCase):
 

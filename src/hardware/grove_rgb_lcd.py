@@ -75,6 +75,7 @@ def setText(text):
 
 def clearText():
     setText("")
+    setRGB(0,0,0)
 
 #Update the display without erasing the display
 def setText_norefresh(text):

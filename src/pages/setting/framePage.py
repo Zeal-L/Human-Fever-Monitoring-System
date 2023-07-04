@@ -5,17 +5,17 @@ from PIL import ImageDraw
 from PIL import ImageFont
 import time
 
-class SleepPage(page.Page):
+class FramePage(page.Page):
 
     def __init__(self):
         super().__init__()
-        self.sleepTime = 0
+        self.frame = 1
         pass
 
     def showText(self, offset: int = 0):
         grove_rgb_lcd.setText_norefresh("Setting Page   \n               \x00")
         OledScreen.clear()
-        icon = Image.open("/home/pi/project/Resource/sleep.png")  # Load the icon
+        icon = Image.open("/home/pi/project/Resource/frame.png")  # Load the icon
         icon.thumbnail((OledScreen.width, OledScreen.height-30))  # Resize the icon to fit within the screen height
         icon_width, icon_height = icon.size
         icon_x = 13
@@ -24,7 +24,7 @@ class SleepPage(page.Page):
 
         font = ImageFont.truetype("/home/pi/project/Resource/Arial.ttf", 15)
         
-        text = "off   " if self.sleepTime == 0 else str(self.sleepTime) + " minuts"
+        text = str(self.frame) + " fps"
         text_width, text_height = font.getsize(text)
         text_x = OledScreen.width - text_width - 8
         text_y = (OledScreen.height - text_height) // 2
