@@ -6,26 +6,32 @@ import src.hardware.OledScreen
 import time
 import _thread
 
-hardware.temp_humidity()
-hardware.movement()
-hardware.RotaryAngle()
-buttonValue = hardware.Button()
-maxAngle = 1024
-subAngle = maxAngle/3
-# currPage = mainPage.mainPage()
+# hardware.Movement.setup()
+# hardware.RotaryAngle.setup()
+# hardware.Button.setup()
+# hardware.Temp_humidity.setup()
+# hardware.Switch.setup()
+handWares = [hardware.Movement, hardware.RotaryAngle, hardware.Button, hardware.Temp_humidity, hardware.Switch, hardware.ButtonLed]
+
+[handWare.setup() for handWare in handWares]
+    
 page.currentPage = mainPage.mainPage()
 
 def temp_humidity():
     while True:
         hardware.movement()
-
+timeGap = 0.1 * 10**9
 if __name__ == "__main__":
+    count = 0
     while True:
-        hardware.movement()
-        hardware.temp_humidity()
-        hardware.movement()
-        hardware.RotaryAngle()
-        page.currentPage.onRotary(hardware.rotaryAngleValue)
-        if hardware.Button():
+        timeNow = time.monotonic_ns()
+        [handWare.loadValue() for handWare in handWares]
+        page.currentPage.onRotary(hardware.RotaryAngle.value)
+        if hardware.Button.value:
             page.currentPage.onButton()
+        timeCost = time.monotonic_ns() - timeNow
+        print("timeCost: ", timeCost/10**9)
+        # if timeCost < timeGap:
+        #     time.sleep((timeGap - timeCost) / 10**9)
+        
             

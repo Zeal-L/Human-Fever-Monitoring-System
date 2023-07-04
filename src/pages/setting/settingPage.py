@@ -1,6 +1,6 @@
 from src.hardware import hardware, grove_rgb_lcd, OledScreen
 from src.pages import node, page
-from project.src.pages.setting import sleepNode, passwordNode, frameNode
+from src.pages.setting import sleepNode, passwordNode, frameNode
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont

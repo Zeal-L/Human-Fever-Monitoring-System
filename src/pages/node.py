@@ -6,6 +6,7 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 import math
+import time
 
 class Node(page.Page):
     def __init__(self):
@@ -25,35 +26,32 @@ class Node(page.Page):
         index = 0 if index < 0 else index
         index = len(self.pages) - 1 if index >= len(self.pages) else index
         if index != self.currentPage:
-            if self.currentPage == -1:
+            # if self.currentPage == -1:
                 self.currentPage = index
+                OledScreen.clear()
                 self.pages[index].showText()
-                OledScreen.disp.image(OledScreen.image)
-                OledScreen.disp.display()
                 return
             
-            if index < self.currentPage:
-                for i in range(0, 129, 64):
-                    print("i: ", i)
-                    OledScreen.clear()
-                    self.pages[self.currentPage].showText(i)
-                    self.pages[index].showText(i - 128)
-                    OledScreen.disp.image(OledScreen.image)
-                    OledScreen.disp.display()
-            else:
-                for i in range(0, -129, -64):
-                    print("i: ", i)
-                    OledScreen.clear()
-                    self.pages[self.currentPage].showText(i)
-                    self.pages[index].showText(i + 128)
-                    OledScreen.disp.image(OledScreen.image)
-                    OledScreen.disp.display()
-            self.currentPage = index
+            # if index < self.currentPage:
+            #     for i in range(0, 129, 64):
+            #         print("i: ", i)
+            #         OledScreen.clear()
+            #         self.pages[self.currentPage].showText(i)
+            #         self.pages[index].showText(i - 128)
+            #         OledScreen.disp.image(OledScreen.image)
+            #         OledScreen.disp.display()
+            # else:
+            #     for i in range(0, -129, -64):
+            #         print("i: ", i)
+            #         OledScreen.clear()
+            #         self.pages[self.currentPage].showText(i)
+            #         self.pages[index].showText(i + 128)
+            #         OledScreen.disp.image(OledScreen.image)
+            #         OledScreen.disp.display()
+            # self.currentPage = index
                 
         elif self.pages[index].showTextChangable():
             self.pages[index].showText()
-            OledScreen.disp.image(OledScreen.image)
-            OledScreen.disp.display()
 
 def NodeScreen(iconPath: str, text: str, offset: int = 0):
     icon = Image.open(iconPath)

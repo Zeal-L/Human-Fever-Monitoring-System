@@ -3,89 +3,168 @@ import grovepi
 import math
 import grove_rgb_lcd
 
-temp_humiditySensor = 4 #put the sensor to D4
+# temp_humiditySensor = 4 #put the sensor to D4
 
-moveSensor = 8 #put the sensor to D8
-grovepi.pinMode(moveSensor,"INPUT")
+# moveSensor = 8 #put the sensor to D8
+# grovepi.pinMode(moveSensor,"INPUT")
 
-RotaryAngleSensor = 2 #put the sensor to A0
-grovepi.pinMode(RotaryAngleSensor,"INPUT")
+# RotaryAngleSensor = 2 #put the sensor to A0
+# grovepi.pinMode(RotaryAngleSensor,"INPUT")
 
-buttonSensor = 3 #put the sensor to D2
-grovepi.pinMode(buttonSensor,"INPUT")
+# buttonSensor = 3 #put the sensor to D2
+# grovepi.pinMode(buttonSensor,"INPUT")
 
-buttonLedSensor = 2 #put the sensor to D2
-grovepi.pinMode(buttonLedSensor,"OUTPUT")
+# buttonLedSensor = 2 #put the sensor to D2
+# grovepi.pinMode(buttonLedSensor,"OUTPUT")
 
-switchSensor = 7 #put the sensor to D7
-grovepi.pinMode(switchSensor,"INPUT")
+# switchSensor = 7 #put the sensor to D7
+# grovepi.pinMode(switchSensor,"INPUT")
 
-buzzSensor = 6 #put the sensor to D0
-time.sleep(1)
+# buzzSensor = 6 #put the sensor to D0
+# time.sleep(1)
 
-start = False
-tempValue,humidityValue = 0,0
-isMove = False
-rotaryAngleValue = 0
-ButtonTrigger = False
+# start = False
+# tempValue,humidityValue = 0,0
+# isMove = False
+# rotaryAngleValue = 0
+# ButtonTrigger = False
 
 MAX_ROTARY_ANGLE = 1024
-
-def getTempValue():
-    return tempValue
-
-def getHumidityValue():
-    return humidityValue
-
-def temp_humidity():
-    global tempValue,humidityValue
-    try:
-        [temp,humidity] = grovepi.dht(temp_humiditySensor,1)  #put the sensor to D4
-        if math.isnan(temp) == False and math.isnan(humidity) == False:
-            tempValue = temp
-            humidityValue = humidity
-            return temp,humidity
-    except IOError:
-        print ("Error")
-    return 0,0
-
-
-def movement():
-    try:
-        # return grovepi.digitalRead(moveSensor)==1
-        global isMove
-        isMove = grovepi.digitalRead(moveSensor) == 1
-        return isMove
-    except IOError:
-        print ("Error")
-    return False
-
-def RotaryAngle():
-    global rotaryAngleValue
-    try:
-        rotaryAngleValue = grovepi.analogRead(RotaryAngleSensor)
-        return rotaryAngleValue
-    except IOError:
-        print ("Error")
-    return -1
+print("hardware init")
+# change to class
+class Temp_humidity:
+    pin = 4
+    tempValue = 0
+    humidityValue = 0
+    lastTime = time.monotonic_ns() - 3 * 10**9
+    gapTime = 3 * 10**9
     
-def Button():
-    global ButtonTrigger
-    try:
-        ButtonTrigger = grovepi.digitalRead(buttonSensor)==0
-        return ButtonTrigger
-    except IOError:
-        print ("Error")
-    return False
-        
-def Switch():
-    global start
-    try:
-        start = grovepi.digitalRead(switchSensor)==1
-        return start
-    except IOError:
-        print ("Error")
-    return False
+    @staticmethod
+    def setup():
+        pass
+    
+    @staticmethod
+    def loadValue():
+        if time.monotonic_ns() - Temp_humidity.lastTime > Temp_humidity.gapTime:
+            try:
+                [temp,humidity] = grovepi.dht(Temp_humidity.pin,1)
+                print("temp: ", temp, "humidity: ", humidity)
+                if math.isnan(temp) == False and math.isnan(humidity) == False:
+                    Temp_humidity.tempValue = temp
+                    Temp_humidity.humidityValue = humidity
+                Temp_humidity.lastTime = time.monotonic_ns()
+            except IOError:
+                print ("Error")
+
+class Movement:
+    pin = 8
+    isMove = False
+    
+    lastTime = time.monotonic_ns()
+    gapTime = 1 * 10**8
+    @staticmethod
+    def setup():
+        grovepi.pinMode(Movement.pin,"INPUT")
+    
+    @staticmethod
+    def loadValue():
+        if time.monotonic_ns() - Movement.lastTime > Movement.gapTime:
+            try:
+                Movement.isMove = grovepi.digitalRead(Movement.pin) == 1
+                Movement.lastTime = time.monotonic_ns()
+            except IOError:
+                print ("Error")
+
+class RotaryAngle:
+    pin = 2
+    value = 0
+    
+    lastTime = time.monotonic_ns()
+    gapTime = 0
+    @staticmethod
+    def setup():
+        grovepi.pinMode(RotaryAngle.pin,"INPUT")
+    
+    @staticmethod
+    def loadValue():
+        if time.monotonic_ns() - RotaryAngle.lastTime > RotaryAngle.gapTime:
+            try:
+                RotaryAngle.value = grovepi.analogRead(RotaryAngle.pin)
+                RotaryAngle.lastTime = time.monotonic_ns()
+            except IOError:
+                print ("Error")
+
+class ButtonLed:
+    pin = 2
+    on = False
+    @staticmethod
+    def setup():
+        grovepi.pinMode(ButtonLed.pin,"OUTPUT")
+    
+    @staticmethod
+    def loadValue():
+        pass
+    
+    @staticmethod
+    def setOn(on: bool):
+        if ButtonLed.on != on:
+            ButtonLed.on = on
+            print("on" if on else "off")
+            grovepi.digitalWrite(ButtonLed.pin, 1 if on else 0)
+                
+class Button:
+    pin = 3
+    value = False
+    
+    lastTime = time.monotonic_ns()
+    gapTime = 0
+    isButtonPressed = False  
+    @staticmethod
+    def setup():
+        grovepi.pinMode(Button.pin,"INPUT")
+    
+    @staticmethod
+    def loadValue():
+        if time.monotonic_ns() - Button.lastTime > Button.gapTime:
+            try:
+                isPressed = grovepi.digitalRead(Button.pin) == 0
+                if isPressed and not Button.isButtonPressed:
+                    Button.isButtonPressed = True
+                    Button.value = True
+                    ButtonLed.setOn(Button.value)
+                elif isPressed and Button.isButtonPressed and Button.value:
+                    Button.value = False
+                    ButtonLed.setOn(True)
+                elif not isPressed:
+                    Button.isButtonPressed = False
+                    Button.value = False
+                    ButtonLed.setOn(Button.value)
+                Button.lastTime = time.monotonic_ns()
+            except IOError:
+                print ("Error")
+        print("Button: ", Button.value)
+                
+class Switch:
+    pin = 7
+    start = False
+    
+    lastTime = time.monotonic_ns()
+    gapTime = 0
+    @staticmethod
+    def setup():
+        grovepi.pinMode(Switch.pin,"INPUT")
+    
+    @staticmethod
+    def loadValue():
+        if time.monotonic_ns() - Switch.lastTime > Switch.gapTime:
+            try:
+                Switch.start = grovepi.digitalRead(Switch.pin)==1
+                Switch.lastTime = time.monotonic_ns()
+            except IOError:
+                print ("Error")
+
+
+
 
 from enum import Enum
 
