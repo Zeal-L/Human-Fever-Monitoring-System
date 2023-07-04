@@ -1,12 +1,12 @@
 from src.pages.setting import settingPage
 from src.hardware import hardware, grove_rgb_lcd, OledScreen
-from src.pages import page, node,romTempPage, faceTempPage, exportNode
+from src.pages import page, node,romTempPage, faceTempPage, exportNode, servoNode
 
 
 class mainPage(node.Node):
     def __init__(self):
         super().__init__()
-        self.pages = [exportNode.ExportNode(self),faceTempPage.FaceTempPage(), romTempPage.RomTempPage(),settingPage.SettingNode(self)]
+        self.pages = [exportNode.ExportNode(self),servoNode.ServoNode(self),faceTempPage.FaceTempPage(), romTempPage.RomTempPage(),settingPage.SettingNode(self)]
         self.pages.reverse()
         pass
 

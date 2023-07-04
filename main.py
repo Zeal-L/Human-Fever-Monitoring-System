@@ -11,7 +11,7 @@ import _thread
 # hardware.Button.setup()
 # hardware.Temp_humidity.setup()
 # hardware.Switch.setup()
-handWares = [hardware.Movement, hardware.RotaryAngle, hardware.Button, hardware.Temp_humidity, hardware.Switch, hardware.ButtonLed]
+handWares = [hardware.Movement, hardware.RotaryAngle, hardware.Button, hardware.Temp_humidity, hardware.Switch, hardware.ButtonLed, hardware.Servo]
 
 [handWare.setup() for handWare in handWares]
     

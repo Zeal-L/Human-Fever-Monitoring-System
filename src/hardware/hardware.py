@@ -2,32 +2,8 @@ import time
 import grovepi
 import math
 import grove_rgb_lcd
-
-# temp_humiditySensor = 4 #put the sensor to D4
-
-# moveSensor = 8 #put the sensor to D8
-# grovepi.pinMode(moveSensor,"INPUT")
-
-# RotaryAngleSensor = 2 #put the sensor to A0
-# grovepi.pinMode(RotaryAngleSensor,"INPUT")
-
-# buttonSensor = 3 #put the sensor to D2
-# grovepi.pinMode(buttonSensor,"INPUT")
-
-# buttonLedSensor = 2 #put the sensor to D2
-# grovepi.pinMode(buttonLedSensor,"OUTPUT")
-
-# switchSensor = 7 #put the sensor to D7
-# grovepi.pinMode(switchSensor,"INPUT")
-
-# buzzSensor = 6 #put the sensor to D0
-# time.sleep(1)
-
-# start = False
-# tempValue,humidityValue = 0,0
-# isMove = False
-# rotaryAngleValue = 0
-# ButtonTrigger = False
+from gpiozero.pins.pigpio import PiGPIOFactory
+from gpiozero import AngularServo
 
 MAX_ROTARY_ANGLE = 1024
 print("hardware init")
@@ -164,6 +140,31 @@ class Switch:
                 print ("Error")
 
 
+
+class Servo:
+    currentAngle = 0
+    MAX_DEGREE = 180
+    factory = PiGPIOFactory()
+
+    servo = AngularServo(18, pin_factory=factory, min_pulse_width=0.0006, max_pulse_width=0.0023)
+    @staticmethod
+    def setup():
+        Servo.servo.angle = 0
+        Servo.currentAngle = 0
+    
+    @staticmethod
+    def loadValue():
+        Servo.servo.angle = Servo.currentAngle
+    
+    @staticmethod
+    def setAngle(angle):
+        # if angle > 180:
+        #     angle = 180
+        angle = angle if angle <= 180 else 180
+        angle = angle if angle >= 0 else 0
+        angle -= 90
+        Servo.currentAngle = angle
+        print("servo angle: ", Servo.currentAngle)
 
 
 from enum import Enum

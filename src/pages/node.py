@@ -7,6 +7,7 @@ from PIL import ImageDraw
 from PIL import ImageFont
 import math
 import time
+import textwrap
 
 class Node(page.Page):
     def __init__(self):
@@ -67,3 +68,28 @@ def NodeScreen(iconPath: str, text: str, offset: int = 0):
     text_y = icon_y + icon_height + 5  # Adjust the value as needed
     OledScreen.draw.text((text_x-offset, text_y), text, font=font, fill=255)
 
+def ErrorScreen(text: str):
+    icon = Image.open("/home/pi/project/Resource/error.png") 
+    icon.thumbnail((OledScreen.width // 6, OledScreen.height - 50)) 
+    icon_width, icon_height = icon.size
+    icon_x = (OledScreen.width - icon_width) // 2
+    icon_y = (OledScreen.height - icon_height) // 2 - 20
+    OledScreen.image.paste(icon, (icon_x, icon_y))
+    font = ImageFont.load_default()
+    error_text_lines = textwrap.wrap(text,20)
+    text_height = sum(OledScreen.draw.textsize(line, font=font)[1] for line in error_text_lines)
+    text_position = ((OledScreen.width - icon_width) // 2 + icon_width, OledScreen.height - text_height - 15)
+
+    for line in error_text_lines:
+        text_width, text_height = OledScreen.draw.textsize(line, font=font)
+        line_position = (10, text_position[1])
+        OledScreen.draw.text(line_position, line, font=font, fill=1)
+        text_position = (10, text_position[1] + text_height)
+
+
+def showErrorScreen(text: str):
+    OledScreen.clear()
+    ErrorScreen(text)
+    OledScreen.disp.image(OledScreen.image)
+    OledScreen.disp.display()
+    time.sleep(1)

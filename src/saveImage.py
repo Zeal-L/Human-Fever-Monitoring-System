@@ -6,11 +6,9 @@ class saveImage:
     def saveImg(image, temperature):
         # fever detection threshold
         if temperature > 37.2:
-            dir = "/src/project/storage/fever"
-            # dir = "/Users/vivi/Desktop/6733/proj/fever"
+            dir = "/home/pi/project/src/storage/fever"
         else:
-            dir = "/src/project/storage/normal"
-            # dir = "/Users/vivi/Desktop/6733/proj/normal"
+            dir = "/home/pi/project/src/storage/fever"
         
         if not os.path.exists(dir):
             os.makedirs(dir)
