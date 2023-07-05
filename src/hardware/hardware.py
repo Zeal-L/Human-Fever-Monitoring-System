@@ -183,23 +183,20 @@ backLight = {
 backlightCount = 0
 def screeBacklight():
     global backlightCount
-    if start:
-        if backLight["type"] == backLightType.error:
-            if backlightCount < 2:
-                grove_rgb_lcd.setRGB(255,0,0)
-            else:
-                grove_rgb_lcd.setRGB(20,0,0)
-                if backlightCount > 3:
-                    backlightCount = 0
-        elif backLight["type"] == backLightType.warning:
-            if backlightCount < 2:
-                grove_rgb_lcd.setRGB(255,255,0)
-            else:
-                grove_rgb_lcd.setRGB(20,20,0)
-                if backlightCount > 3:
-                    backlightCount = 0
+    if backLight["type"] == backLightType.error:
+        if backlightCount < 2:
+            grove_rgb_lcd.setRGB(255,0,0)
         else:
-            grove_rgb_lcd.setRGB(backLight["r"],backLight["g"],backLight["b"])
+            grove_rgb_lcd.setRGB(20,0,0)
+            if backlightCount > 3:
+                backlightCount = 0
+    elif backLight["type"] == backLightType.warning:
+        if backlightCount < 2:
+            grove_rgb_lcd.setRGB(255,255,0)
+        else:
+            grove_rgb_lcd.setRGB(20,20,0)
+            if backlightCount > 3:
+                backlightCount = 0
     else:
-        grove_rgb_lcd.setRGB(0,0,0)
+        grove_rgb_lcd.setRGB(backLight["r"],backLight["g"],backLight["b"])
     backlightCount += 1
