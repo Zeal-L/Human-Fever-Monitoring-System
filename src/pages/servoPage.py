@@ -9,8 +9,7 @@ class ServoPage(page.Page):
 
     def __init__(self):
         super().__init__()
-        self.angle = 10
-        pass
+        self.angle = hardware.Servo.currentAngle
 
     def showText(self, offset: int = 0):
         OledScreen.clear()

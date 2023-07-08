@@ -34,12 +34,12 @@ if __name__ == "__main__":
                 if hardware.Button.value:
                     page.currentPage.onButton()
                 timeCost = time.monotonic_ns() - timeNow
-                print("timeCost: ", timeCost/10**9)
+                # print("timeCost: ", timeCost/10**9)
             else:
                 if not stoping:
                     stoping = True
                     cleanup()
-                time.sleep(0.5)
+                time.sleep(1)
                 hardware.Switch.loadValue()
     except KeyboardInterrupt:
         print("KeyboardInterrupt")

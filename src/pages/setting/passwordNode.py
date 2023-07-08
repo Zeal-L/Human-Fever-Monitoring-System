@@ -48,16 +48,17 @@ class PasswordNode(node.Node):
             self.passwordPage.status = 'new'
             if len(self.curretEnter) == self.passWordLength:
                 self.newPassword = self.curretEnter
-                self.enterStatus = "cfm "
+                self.enterStatus = "cfm"
                 self.enterEdit = 0
                 self.curretEnter = ""
             self.passwordPage.showText()
-        if self.enterStatus == "cfm ":
+        if self.enterStatus == "cfm":
             self.passwordPage.status = 'cfm'
             if len(self.curretEnter) == self.passWordLength:
                 if self.curretEnter == self.newPassword:
                     self.oldPassword = self.newPassword
                     self.enterStatus = "old"
+                    readAndWrite.ReadAndWrite.setValue("password", self.oldPassword)
                     self.enterEdit = 0
                     self.curretEnter = ""
                     page.currentPage = self.pages[0]
@@ -66,6 +67,8 @@ class PasswordNode(node.Node):
                     self.curretEnter = ""
                     node.showErrorScreen("password does not match")
                     self.passwordPage.showText()
+            else:
+                self.passwordPage.showText()
                     
         # OledScreen.clear()
         # page.currentPage = self.pages[0]

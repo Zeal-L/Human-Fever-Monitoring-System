@@ -4,6 +4,7 @@ import math
 import grove_rgb_lcd
 from gpiozero.pins.pigpio import PiGPIOFactory
 from gpiozero import AngularServo
+from src.storage import readAndWrite
 
 MAX_ROTARY_ANGLE = 1024
 print("hardware init")
@@ -85,7 +86,7 @@ class ButtonLed:
     def setOn(on: bool):
         if ButtonLed.on != on:
             ButtonLed.on = on
-            print("on" if on else "off")
+            # print("on" if on else "off")
             grovepi.digitalWrite(ButtonLed.pin, 1 if on else 0)
                 
 class Button:
@@ -118,7 +119,7 @@ class Button:
                 Button.lastTime = time.monotonic_ns()
             except IOError:
                 print ("Error")
-        print("Button: ", Button.value)
+        # print("Button: ", Button.value)
                 
 class Switch:
     pin = 7
@@ -145,12 +146,11 @@ class Servo:
     currentAngle = 0
     MAX_DEGREE = 180
     factory = PiGPIOFactory()
-
     servo = AngularServo(18, pin_factory=factory, min_pulse_width=0.0006, max_pulse_width=0.0023)
     @staticmethod
     def setup():
-        Servo.servo.angle = 0
-        Servo.currentAngle = 0
+        Servo.currentAngle = int(readAndWrite.ReadAndWrite.getValue("ServoAngle"))
+        Servo.servo.angle = Servo.currentAngle - 90
     
     @staticmethod
     def loadValue():
@@ -158,12 +158,15 @@ class Servo:
     
     @staticmethod
     def setAngle(angle):
+        if Servo.currentAngle+1 == angle or Servo.currentAngle-1 == angle:
+            return
         angle = angle if angle <= 180 else 180
         angle = angle if angle >= 0 else 0
-        angle -= 90
         Servo.currentAngle = angle
-        Servo.servo.angle = Servo.currentAngle
+        angle -= 90
+        Servo.servo.angle = angle
         print("servo angle: ", Servo.currentAngle)
+        readAndWrite.ReadAndWrite.setValue("ServoAngle", Servo.currentAngle)
 
 
 from enum import Enum
