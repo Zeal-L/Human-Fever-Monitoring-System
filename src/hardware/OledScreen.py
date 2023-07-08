@@ -1,13 +1,17 @@
 from PIL import Image
 from PIL import ImageDraw
-from PIL import ImageFont
-import Adafruit_GPIO.SPI as SPI
+# import Adafruit_SSD1306
+
+# from __future__ import division
+import logging
+import time
+
 import Adafruit_SSD1306
 
 width = 128
 height = 64
     
-RST = 0
+RST = None
 disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST)
 disp.begin()
 disp.clear()

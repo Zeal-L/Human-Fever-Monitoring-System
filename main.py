@@ -12,7 +12,6 @@ handWares = [hardware.Movement, hardware.RotaryAngle, hardware.Button, hardware.
 page.currentPage = mainPage.mainPage()
 
 def cleanup():
-    # 在程序终止时执行的清理工作
     print("Performing cleanup tasks...")
     OledScreen.clear()
     OledScreen.disp.image(OledScreen.image)

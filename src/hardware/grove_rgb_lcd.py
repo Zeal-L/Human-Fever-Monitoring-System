@@ -114,16 +114,16 @@ def create_char(location, pattern):
     textCommand(0x40 | (location << 3))
     bus.write_i2c_block_data(DISPLAY_TEXT_ADDR, 0x40, pattern)
 
-create_char(0, [
-    0b00001,
-    0b00001,
-    0b00001,
-    0b00101,
-    0b01101,
-    0b11111,
-    0b01100,
-    0b00100
-])
+# create_char(0, [
+#     0b00001,
+#     0b00001,
+#     0b00001,
+#     0b00101,
+#     0b01101,
+#     0b11111,
+#     0b01100,
+#     0b00100
+# ])
 
 # example code
 if __name__=="__main__":
