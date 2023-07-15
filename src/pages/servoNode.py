@@ -47,9 +47,9 @@ class ServoNode(node.Node):
     def onRotary(self, rotaryValue: int):
         print(rotaryValue)
         OledScreen.clear()
-        subAngle = 1024 / hardware.Servo.MAX_DEGREE
+        subAngle = 1024 / hardware.PTZ.X_MAX_DEGREE
         index = int(rotaryValue / subAngle)
-        hardware.Servo.setAngle(index)
+        hardware.PTZ.setAngle(index-90)
         self.servoPage.angle = index
         self.servoPage.showText()
     

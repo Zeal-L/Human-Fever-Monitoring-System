@@ -6,7 +6,6 @@ from gpiozero.pins.pigpio import PiGPIOFactory
 from gpiozero import AngularServo
 from src.storage import readAndWrite
 
-MAX_ROTARY_ANGLE = 1024
 print("hardware init")
 # change to class
 class Temp_humidity:
@@ -123,7 +122,7 @@ class Button:
                 
 class Switch:
     pin = 7
-    value = False
+    value = True
     
     lastTime = time.monotonic_ns()
     gapTime = 0
@@ -141,33 +140,72 @@ class Switch:
                 print ("Error")
 
 
-
 class Servo:
-    currentAngle = 0
-    MAX_DEGREE = 180
-    factory = PiGPIOFactory()
-    servo = AngularServo(18, pin_factory=factory, min_pulse_width=0.0006, max_pulse_width=0.0023)
+    def __init__(self, pin, minAngle, maxAngle):
+        self.pin = pin
+        self.minAngle = minAngle
+        self.maxAngle = maxAngle
+        self.currentAngle = 0
+        self.factory = PiGPIOFactory()
+        self.servo = AngularServo(self.pin, pin_factory=self.factory, min_pulse_width=0.0006, max_pulse_width=0.0023)
+    
+    def setAngle(self, angle):
+        print("servo angle: ", self.currentAngle)
+        if self.currentAngle +1 == angle or self.currentAngle -1 == angle:
+            return
+        angle = angle if angle <= self.maxAngle else self.maxAngle
+        angle = angle if angle >= self.minAngle else self.minAngle
+        self.servo.angle = angle
+        self.currentAngle = angle
+        print("servo angle: ", self.servo.angle)
+
+    def getAngle(self):
+        return self.currentAngle
+        
+
+class PTZ:
+    x_servo_pin = 17
+    y_servo_pin = 18
+    X_MAX_DEGREE = 180
+    Y_MAX_DEGREE = 120
+    x_servo = Servo(x_servo_pin, -90, 90)
+    y_servo = Servo(y_servo_pin, -40, 80)
     @staticmethod
     def setup():
-        Servo.currentAngle = int(readAndWrite.ReadAndWrite.getValue("ServoAngle"))
-        Servo.servo.angle = Servo.currentAngle - 90
+        # PTZ.currentAngle = int(readAndWrite.ReadAndWrite.getValue("ServoAngle"))
+        PTZ.x_servo.setAngle(0)
+        PTZ.y_servo.setAngle(0)
+        time.sleep(1)
+        PTZ.x_servo.setAngle(-90)
+        PTZ.y_servo.setAngle(-40)
+        time.sleep(1)   
+        PTZ.x_servo.setAngle(90)
+        PTZ.y_servo.setAngle(80)
+        time.sleep(1)
+        PTZ.x_servo.setAngle(0)
+        PTZ.y_servo.setAngle(0)
+        
     
     @staticmethod
     def loadValue():
         pass
     
     @staticmethod
-    def setAngle(angle):
-        if Servo.currentAngle+1 == angle or Servo.currentAngle-1 == angle:
-            return
-        angle = angle if angle <= 180 else 180
-        angle = angle if angle >= 0 else 0
-        Servo.currentAngle = angle
-        angle -= 90
-        Servo.servo.angle = angle
-        print("servo angle: ", Servo.currentAngle)
-        readAndWrite.ReadAndWrite.setValue("ServoAngle", Servo.currentAngle)
-
+    def setAngle(xAngle, yAngle):
+        PTZ.x_servo.setAngle(xAngle)
+        PTZ.y_servo.setAngle(yAngle)
+        
+    @staticmethod
+    def setAngle(xAngle):
+        PTZ.x_servo.setAngle(xAngle)
+        
+    @staticmethod
+    def setXAngle(angle):
+        PTZ.x_servo.setAngle(angle)
+    
+    @staticmethod
+    def setYAngle(angle):
+        PTZ.y_servo.setAngle(angle)
 
 from enum import Enum
 

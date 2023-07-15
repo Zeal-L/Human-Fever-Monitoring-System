@@ -2,10 +2,11 @@ from src.hardware import hardware,OledScreen, grove_rgb_lcd
 from src.pages import romTempPage as romTempPage
 from src.pages import mainPage as mainPage
 from src.pages import page as page
+# from src.camera import camera
 import time
 import _thread
 
-handWares = [hardware.Movement, hardware.RotaryAngle, hardware.Button, hardware.Temp_humidity, hardware.Switch, hardware.ButtonLed, hardware.Servo]
+handWares = [hardware.Movement, hardware.RotaryAngle, hardware.Button, hardware.Temp_humidity, hardware.Switch, hardware.ButtonLed, hardware.PTZ]
 
 [handWare.setup() for handWare in handWares]
     
@@ -20,6 +21,7 @@ def cleanup():
         
 timeGap = 0.1 * 10**9
 if __name__ == "__main__":
+    # _thread.start_new_thread(camera.Camera.run, ())
     count = 0
     stoping = False
     try:
@@ -33,6 +35,7 @@ if __name__ == "__main__":
                 if hardware.Button.value:
                     page.currentPage.onButton()
                 timeCost = time.monotonic_ns() - timeNow
+                # camera.Camera.run()
                 # print("timeCost: ", timeCost/10**9)
             else:
                 if not stoping:

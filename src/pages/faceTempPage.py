@@ -1,5 +1,6 @@
 from src.hardware import hardware, grove_rgb_lcd, OledScreen
 from src.pages import page
+# from src.camera import camera
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -7,16 +8,16 @@ from PIL import ImageFont
 class FaceTempPage(page.Page):
     def __init__(self):
         print(hardware.Temp_humidity.tempValue)
-        self.prevTemp = hardware.Temp_humidity.tempValue
+        self.prevTemp = 0
         self.prevHumid = hardware.Temp_humidity.humidityValue
         pass
 
     def showText(self, offset: int = 0):
         # if self.prevTemp == hardware.Temp_humidity.tempValue and self.prevHumid == hardware.Temp_humidity.humidityValue:
         #     return
-        self.prevTemp = hardware.Temp_humidity.tempValue
+        self.prevTemp = 0
         self.prevHumid = hardware.Temp_humidity.humidityValue
-        grove_rgb_lcd.setText_norefresh("temp = %.02f C  humidity = %.02f%%"%(hardware.Temp_humidity.tempValue, hardware.Temp_humidity.humidityValue))
+        grove_rgb_lcd.setText_norefresh("temp = %.02f C  Nframe = %.02f%%"%(self.prevTemp, hardware.Temp_humidity.humidityValue))
         OledScreen.clear()
         icon = Image.open("/home/pi/project/Resource/face.png")
         icon.thumbnail((OledScreen.width, 20))  # Resize the icon to fit within the screen height
@@ -39,18 +40,18 @@ class FaceTempPage(page.Page):
         font = ImageFont.truetype("/home/pi/project/Resource/Arial.ttf", 15)
 
         
-        temperature = str(36.7) + " C"
+        temperature = "{:.2f} C".format(self.prevTemp) if self.prevTemp != 0 else "N/A"
         temperature_width, temperature_height = font.getsize(temperature)
         temperature_x = OledScreen.width - temperature_width - 38
         temperature_y = (OledScreen.height - temperature_height) // 2 - 15
         OledScreen.draw.text((temperature_x-offset, temperature_y), temperature, font=font, fill=255)
 
         # Display humidity
-        humidity = str(hardware.Temp_humidity.humidityValue)
-        humidity_width, humidity_height = font.getsize(humidity)
-        humidity_x = OledScreen.width - humidity_width - 50
-        humidity_y = (OledScreen.height - humidity_height) // 2 + 15  # Adjust the value as needed
-        OledScreen.draw.text((humidity_x-offset, humidity_y), humidity, font=font, fill=255)
+        Nframe = "0"
+        Nframe_width, Nframe_height = font.getsize(Nframe)
+        Nframe_x = OledScreen.width - Nframe_width - 50
+        Nframe_y = (OledScreen.height - Nframe_height) // 2 + 15  # Adjust the value as needed
+        OledScreen.draw.text((Nframe_x-offset, Nframe_y), Nframe, font=font, fill=255)
         
         OledScreen.disp.image(OledScreen.image)
         OledScreen.disp.display()
