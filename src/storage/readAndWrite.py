@@ -1,4 +1,3 @@
-
 class ReadAndWrite():
     datatext = {}
     filename = '/home/pi/project/storage/data.txt'

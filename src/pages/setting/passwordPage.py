@@ -15,7 +15,6 @@ class PasswordPage(page.Page):
         pass
 
     def showText(self, offset: int = 0):
-        grove_rgb_lcd.setText_norefresh("Setting Page   \n               \x00")
         OledScreen.clear()
         font = ImageFont.truetype("/home/pi/project/Resource/Arial.ttf", size=18)
         digit_width, digit_height = OledScreen.draw.textsize("0", font=font)

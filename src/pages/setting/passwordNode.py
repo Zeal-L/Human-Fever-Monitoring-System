@@ -21,7 +21,6 @@ class PasswordNode(node.Node):
         pass
 
     def showText(self, offset: int = 0):
-        grove_rgb_lcd.setText_norefresh("Setting Page   \n               \x00")
         
         node.NodeScreen("/home/pi/project/Resource/password.png", "Password", offset)
         OledScreen.disp.image(OledScreen.image)

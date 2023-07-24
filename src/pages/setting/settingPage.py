@@ -14,7 +14,6 @@ class SettingNode(node.Node):
         pass
 
     def showText(self, offset: int = 0):
-        grove_rgb_lcd.setText_norefresh("Setting Page   \n               \x00")
         
         node.NodeScreen("/home/pi/project/Resource/setting.png", "Settings", offset)
         OledScreen.disp.image(OledScreen.image)

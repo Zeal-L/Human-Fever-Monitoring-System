@@ -59,14 +59,14 @@ def NodeScreen(iconPath: str, text: str, offset: int = 0):
     icon.thumbnail((OledScreen.width, OledScreen.height - 20))
     icon_width, icon_height = icon.size
     icon_x = (OledScreen.width - icon_width) // 2
-    icon_y = (OledScreen.height - icon_height) // 2 - 10
-    OledScreen.image.paste(icon, (icon_x-offset, icon_y))
+    icon_y = (OledScreen.height - icon_height) // 2 + 10  # Adjust the value as needed
+    OledScreen.image.paste(icon, (icon_x - offset, icon_y))
     
     font = ImageFont.load_default()
     text_width, text_height = OledScreen.draw.textsize(text, font=font)
     text_x = (OledScreen.width - text_width) // 2
-    text_y = icon_y + icon_height + 5  # Adjust the value as needed
-    OledScreen.draw.text((text_x-offset, text_y), text, font=font, fill=255)
+    text_y = icon_y - text_height - 5  # Adjust the value as needed
+    OledScreen.draw.text((text_x - offset, text_y), text, font=font, fill=255)
 
 def ErrorScreen(text: str):
     icon = Image.open("/home/pi/project/Resource/error.png") 

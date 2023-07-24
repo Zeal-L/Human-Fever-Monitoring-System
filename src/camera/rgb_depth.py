@@ -1,6 +1,7 @@
 
 import pyrealsense2 as rs
 import numpy as np
+import cv2
 
 class RGB_Depth:
     def __init__(self):

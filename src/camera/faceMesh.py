@@ -43,7 +43,9 @@ class FaceMeshDetector:
                 face_landmarks_list.append((x, y))
 
             # print(face_landmarks_list[0], len(face_landmarks_list))
-
+        
+        # cv2.imshow("FaceMesh", color_image)
+        
         return face_landmarks_list
 
     def __del__(self):

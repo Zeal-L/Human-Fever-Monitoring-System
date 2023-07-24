@@ -20,21 +20,21 @@ class ServoNode(node.Node):
         icon.thumbnail((OledScreen.width, OledScreen.height - 20))
         icon_width, icon_height = icon.size
         icon_x = (OledScreen.width - icon_width) // 2 - 30
-        icon_y = (OledScreen.height - icon_height) // 2 - 10
+        icon_y = (OledScreen.height - icon_height) // 2 + 10
         OledScreen.image.paste(icon, (icon_x-offset, icon_y))
         
         font = ImageFont.truetype("/home/pi/project/Resource/Arial.ttf", 15)
         text = str(self.servoPage.angle) + "°"
         text_width, text_height = OledScreen.draw.textsize(text, font=font)
         text_x = icon_x + icon_width + 5
-        text_y = (OledScreen.height - text_height) // 2 - 5
+        text_y = (OledScreen.height - text_height) // 2 + 15
         OledScreen.draw.text((text_x-offset, text_y), text, font=font, fill=255)
         
         font = ImageFont.load_default()
         text = "servo motor"
         text_width, text_height = OledScreen.draw.textsize(text, font=font)
         text_x = (OledScreen.width - text_width) // 2
-        text_y = icon_y + icon_height + 5  # Adjust the value as needed
+        text_y = 0
         OledScreen.draw.text((text_x-offset, text_y), text, font=font, fill=255)
         OledScreen.disp.image(OledScreen.image)
         OledScreen.disp.display()
@@ -49,7 +49,7 @@ class ServoNode(node.Node):
         OledScreen.clear()
         subAngle = 1024 / hardware.PTZ.X_MAX_DEGREE
         index = int(rotaryValue / subAngle)
-        hardware.PTZ.setAngle(index-90)
+        hardware.PTZ.setXAngle(index-90)
         self.servoPage.angle = index
         self.servoPage.showText()
     

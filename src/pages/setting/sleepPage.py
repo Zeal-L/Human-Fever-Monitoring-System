@@ -13,14 +13,13 @@ class SleepPage(page.Page):
         pass
 
     def showText(self, offset: int = 0):
-        grove_rgb_lcd.setText_norefresh("Setting Page   \n               \x00")
         OledScreen.clear()
         icon = Image.open("/home/pi/project/Resource/sleep.png")  # Load the icon
         icon.thumbnail((OledScreen.width, OledScreen.height-30))  # Resize the icon to fit within the screen height
         icon_width, icon_height = icon.size
         icon_x = 13
         icon_y = (OledScreen.height - icon_height) // 2  # Adjust the value as needed
-        OledScreen.image.paste(icon, (icon_x, icon_y))
+        OledScreen.image.paste(icon, (icon_x, icon_y+1))
 
         font = ImageFont.truetype("/home/pi/project/Resource/Arial.ttf", 15)
         

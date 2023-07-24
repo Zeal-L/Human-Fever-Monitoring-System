@@ -1,0 +1,300 @@
+OledScreen.py: OledScreen initialized
+0
+0
+Rtemp <Synchronized wrapper for c_double(25.0)> frame <Synchronized wrapper for c_long(0)> Ftemp <Synchronized wrapper for c_double(0.0)>
+Depth: 46.56 cm
+39.19 C
+Depth: 46.72 cm
+39.25 C
+Depth: 49.72 cm
+39.33 C
+Depth: 20.16 cm
+37.42 C
+Depth: 54.58 cm
+38.9 C
+Depth: 54.260000000000005 cm
+38.6 C
+Depth: 51.1 cm
+38.83 C
+Depth: 40.92 cm
+38.76 C
+Depth: 50.18 cm
+39.25 C
+Depth: 48.14 cm
+39.3 C
+Depth: 47.260000000000005 cm
+39.18 C
+Depth: 46.64 cm
+39.24 C
+Depth: 47.62 cm
+39.25 C
+Depth: 48.8 cm
+39.12 C
+Depth: 49.94 cm
+39.27 C
+Depth: 51.92 cm
+39.39 C
+Depth: 51.54 cm
+39.1 C
+Depth: 50.94 cm
+39.05 C
+Depth: 49.94 cm
+38.89 C
+Depth: 50.339999999999996 cm
+38.99 C
+Depth: 22.419999999999998 cm
+37.46 C
+Depth: 196.98 cm
+46.45 C
+Depth: 23.14 cm
+37.93 C
+Depth: 46.14 cm
+39.25 C
+Depth: 55.06 cm
+39.5 C
+Depth: 49.88 cm
+39.1 C
+Depth: 52.839999999999996 cm
+39.17 C
+Depth: 71.16 cm
+40.23 C
+Depth: 54.9 cm
+39.33 C
+Depth: 57.660000000000004 cm
+39.52 C
+Depth: 48.86 cm
+39.21 C
+Depth: 62.36 cm
+39.77 C
+Depth: 62.5 cm
+39.52 C
+Depth: 60.17999999999999 cm
+40.04 C
+Depth: 60.92 cm
+39.27 C
+Depth: 62.46 cm
+39.58 C
+Depth: 61.32000000000001 cm
+39.54 C
+Depth: 60.48 cm
+39.42 C
+Depth: 60.839999999999996 cm
+39.57 C
+Depth: 60.739999999999995 cm
+39.48 C
+Depth: 62.0 cm
+39.56 C
+Depth: 61.379999999999995 cm
+39.37 C
+Depth: 61.17999999999999 cm
+39.39 C
+Depth: 61.64 cm
+39.4 C
+Depth: 57.3 cm
+39.37 C
+Depth: 47.12 cm
+38.94 C
+Depth: 46.760000000000005 cm
+38.85 C
+Depth: 42.480000000000004 cm
+38.66 C
+Depth: 42.480000000000004 cm
+38.55 C
+Depth: 43.36 cm
+38.69 C
+Depth: 42.82 cm
+38.94 C
+Depth: 41.32 cm
+38.99 C
+Depth: 41.58 cm
+38.94 C
+Depth: 43.58 cm
+39.1 C
+Depth: 46.06 cm
+39.13 C
+Depth: 8.86 cm
+37.3 C
+Depth: 9.36 cm
+37.23 C
+Depth: 8.98 cm
+37.26 C
+Depth: 49.46 cm
+39.24 C
+Depth: 30.48 cm
+38.32 C
+Depth: 45.5 cm
+39.13 C
+Depth: 43.260000000000005 cm
+39.05 C
+Depth: 44.839999999999996 cm
+39.04 C
+Depth: 45.44 cm
+39.32 C
+Depth: 42.92 cm
+39.42 C
+Rtemp 0.0 frame 0 Ftemp 0.0
+OledScreen.py: OledScreen cleared
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.0 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 0 Ftemp 0.0
+Rtemp 25.1 frame 1 Ftemp 39.19
+Rtemp 25.1 frame 1 Ftemp 39.19
+Rtemp 25.1 frame 2 Ftemp 39.25
+Rtemp 25.1 frame 2 Ftemp 39.25
+Rtemp 25.1 frame 3 Ftemp 39.33
+Rtemp 25.1 frame 3 Ftemp 39.33
+Rtemp 25.1 frame 3 Ftemp 39.33
+Rtemp 25.1 frame 4 Ftemp 37.42
+Rtemp 25.1 frame 4 Ftemp 37.42
+Rtemp 25.1 frame 5 Ftemp 38.9
+Rtemp 25.1 frame 5 Ftemp 38.9
+Rtemp 25.1 frame 6 Ftemp 38.6
+Rtemp 25.1 frame 7 Ftemp 38.83
+Rtemp 25.1 frame 8 Ftemp 38.76
+Rtemp 25.1 frame 8 Ftemp 38.76
+Rtemp 25.1 frame 8 Ftemp 38.76
+Rtemp 25.1 frame 9 Ftemp 39.25
+Rtemp 25.1 frame 9 Ftemp 39.25
+Rtemp 25.1 frame 10 Ftemp 39.3
+Rtemp 25.1 frame 10 Ftemp 39.3
+Rtemp 25.1 frame 11 Ftemp 39.18
+Rtemp 25.1 frame 11 Ftemp 39.18
+Rtemp 25.1 frame 12 Ftemp 39.24
+Rtemp 25.1 frame 12 Ftemp 39.24
+Rtemp 25.1 frame 12 Ftemp 39.24
+Rtemp 25.1 frame 13 Ftemp 39.25
+Rtemp 25.1 frame 13 Ftemp 39.25
+Rtemp 25.1 frame 14 Ftemp 39.12
+Rtemp 25.1 frame 14 Ftemp 39.12
+Rtemp 25.1 frame 15 Ftemp 39.27
+Rtemp 25.1 frame 15 Ftemp 39.27
+Rtemp 25.1 frame 16 Ftemp 39.39
+Rtemp 25.1 frame 16 Ftemp 39.39
+Rtemp 25.1 frame 16 Ftemp 39.39
+Rtemp 25.1 frame 18 Ftemp 39.05
+Rtemp 25.1 frame 18 Ftemp 39.05
+Rtemp 25.1 frame 19 Ftemp 38.89
+Rtemp 25.1 frame 19 Ftemp 38.89
+Rtemp 25.1 frame 19 Ftemp 38.89
+Rtemp 25.1 frame 20 Ftemp 38.99
+Rtemp 25.1 frame 20 Ftemp 38.99
+Rtemp 25.1 frame 21 Ftemp 37.46
+Rtemp 25.1 frame 21 Ftemp 37.46
+Rtemp 25.1 frame 22 Ftemp 46.45
+Rtemp 25.1 frame 22 Ftemp 46.45
+Rtemp 25.1 frame 23 Ftemp 37.93
+Rtemp 25.1 frame 23 Ftemp 37.93
+Rtemp 25.1 frame 24 Ftemp 39.25
+Rtemp 25.1 frame 24 Ftemp 39.25
+Rtemp 25.1 frame 25 Ftemp 39.5
+Rtemp 25.1 frame 25 Ftemp 39.5
+Rtemp 25.1 frame 25 Ftemp 39.5
+Rtemp 25.1 frame 26 Ftemp 39.1
+Rtemp 25.1 frame 26 Ftemp 39.1
+Rtemp 25.1 frame 27 Ftemp 39.17
+Rtemp 25.1 frame 27 Ftemp 39.17
+Rtemp 25.1 frame 29 Ftemp 39.33
+Rtemp 25.1 frame 29 Ftemp 39.33
+Rtemp 25.1 frame 30 Ftemp 39.52
+Rtemp 25.1 frame 30 Ftemp 39.52
+Rtemp 25.1 frame 31 Ftemp 39.21
+Rtemp 25.1 frame 31 Ftemp 39.21
+Rtemp 25.1 frame 32 Ftemp 39.77
+Rtemp 25.1 frame 32 Ftemp 39.77
+Rtemp 25.1 frame 32 Ftemp 39.77
+Rtemp 25.1 frame 33 Ftemp 39.52
+Rtemp 25.1 frame 33 Ftemp 39.52
+Rtemp 25.1 frame 34 Ftemp 40.04
+Rtemp 25.1 frame 34 Ftemp 40.04
+Rtemp 25.1 frame 35 Ftemp 39.27
+Rtemp 25.1 frame 35 Ftemp 39.27
+Rtemp 25.1 frame 36 Ftemp 39.58
+Rtemp 25.1 frame 36 Ftemp 39.58
+Rtemp 25.1 frame 37 Ftemp 39.54
+Rtemp 25.1 frame 37 Ftemp 39.54
+Rtemp 25.1 frame 38 Ftemp 39.42
+Rtemp 25.1 frame 38 Ftemp 39.42
+Rtemp 25.1 frame 39 Ftemp 39.57
+Rtemp 25.1 frame 40 Ftemp 39.48
+Rtemp 25.1 frame 41 Ftemp 39.56
+Rtemp 25.1 frame 41 Ftemp 39.56
+Rtemp 25.1 frame 41 Ftemp 39.56
+Rtemp 25.1 frame 42 Ftemp 39.37
+Rtemp 25.1 frame 42 Ftemp 39.37
+Rtemp 25.1 frame 43 Ftemp 39.39
+Rtemp 25.1 frame 43 Ftemp 39.39
+Rtemp 25.1 frame 44 Ftemp 39.4
+Rtemp 25.1 frame 44 Ftemp 39.4
+Rtemp 25.1 frame 44 Ftemp 39.4
+Rtemp 25.1 frame 45 Ftemp 39.37
+Rtemp 25.1 frame 45 Ftemp 39.37
+Rtemp 25.1 frame 46 Ftemp 38.94
+Rtemp 25.1 frame 46 Ftemp 38.94
+Rtemp 25.1 frame 47 Ftemp 38.85
+Rtemp 25.1 frame 47 Ftemp 38.85
+Rtemp 25.1 frame 48 Ftemp 38.66
+Rtemp 25.1 frame 48 Ftemp 38.66
+Rtemp 25.1 frame 49 Ftemp 38.55
+Rtemp 25.1 frame 49 Ftemp 38.55
+Rtemp 25.1 frame 50 Ftemp 38.69
+Rtemp 25.1 frame 51 Ftemp 38.94
+Rtemp 25.1 frame 52 Ftemp 38.99
+Rtemp 25.1 frame 52 Ftemp 38.99
+Rtemp 25.1 frame 52 Ftemp 38.99
+Rtemp 25.1 frame 53 Ftemp 38.94
+Rtemp 25.1 frame 53 Ftemp 38.94
+Rtemp 25.1 frame 54 Ftemp 39.1
+Rtemp 25.1 frame 54 Ftemp 39.1
+Rtemp 25.1 frame 55 Ftemp 39.13
+Rtemp 25.1 frame 55 Ftemp 39.13
+Rtemp 25.1 frame 55 Ftemp 39.13
+Rtemp 25.1 frame 56 Ftemp 37.3
+Rtemp 25.1 frame 56 Ftemp 37.3
+Rtemp 25.1 frame 57 Ftemp 37.23
+Rtemp 25.1 frame 57 Ftemp 37.23
+Rtemp 25.1 frame 58 Ftemp 37.26
+Rtemp 25.1 frame 58 Ftemp 37.26
+Rtemp 25.1 frame 59 Ftemp 39.24
+Rtemp 25.1 frame 59 Ftemp 39.24
+Rtemp 25.1 frame 60 Ftemp 38.32
+Rtemp 25.1 frame 60 Ftemp 38.32
+Rtemp 25.1 frame 61 Ftemp 39.13
+Rtemp 25.2 frame 62 Ftemp 39.05
+Rtemp 25.2 frame 63 Ftemp 39.04
+Rtemp 25.2 frame 63 Ftemp 39.04
+Rtemp 25.2 frame 63 Ftemp 39.04
+Rtemp 25.2 frame 64 Ftemp 39.32
+Rtemp 25.2 frame 64 Ftemp 39.32
+Rtemp 25.2 frame 65 Ftemp 39.42
+KeyboardInterrupt
+Performing cleanup tasks...
+OledScreen.py: OledScreen cleared
+servo close
+servo close

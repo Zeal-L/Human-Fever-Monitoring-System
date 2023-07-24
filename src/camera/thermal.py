@@ -32,9 +32,9 @@ class Thermal:
 
         self.timer = time.time()
 
-        return thermal_data
+        return thermal_img, thermal_data
 
-    def get_temperature_depth(self, thermal_data, face_coordinates, depth_data):
+    def get_temperature_depth(self, thermal_data, face_coordinates, depth_data, Rtemp):
         
         # # 去除face_coordinates里的所有超过图像大小的坐标
         # face_coordinates = [ cor for cor in face_coordinates if cor[0] < thermal_data.shape[0] and cor[1] < thermal_data.shape[1] and cor[0] >= 0 and cor[1] >= 0]
@@ -60,12 +60,29 @@ class Thermal:
 
         # mm -> cm
         avg_depth = avg_depth / 10
-        # print(avg_depth)
+        print(f"Depth: {avg_depth} cm")
+        
+        # data = str(round(avg_temperature, 2)) + ' ' + str(round(avg_depth, 2))
+        # with open('data.txt', 'a') as f:
+        #     f.write(str(data) + '\n')
 
-        # 根据脸的距离修正温度 (经验值)
-        avg_temperature = avg_temperature + avg_depth * 0.02
-
-        return avg_temperature + 3
+        # # 根据脸的距离修正温度 (经验值)
+        # k = 0.01
+        # avg_temperature = avg_temperature + avg_depth * (0.02 + k * (Rtemp - 22))
+        
+        stand_temp = self.standardize_temperature(avg_temperature, avg_depth)
+        k = -0.1
+        env_temp_offset =  k * (Rtemp - 22)
+        
+        final_temp = stand_temp + env_temp_offset
+        
+        return round(final_temp, 2)
+    
+    def standardize_temperature(self, temperature, distance):
+        # 计算拟合线的值
+        fitted_temperature = 7.02750929626956e-06 * distance**2 + -0.0080872230503977 * distance + 34.60362646260583
+        # 计算标准温度
+        return 37.3 + (fitted_temperature - temperature)
 
     def to_celsius(self, data):
         return data / 100 - 273.15

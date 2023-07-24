@@ -18,7 +18,7 @@ class ServoPage(page.Page):
         icon_width, icon_height = icon.size
         icon_x = 13
         icon_y = (OledScreen.height - icon_height) // 2  # Adjust the value as needed
-        OledScreen.image.paste(icon, (icon_x, icon_y))
+        OledScreen.image.paste(icon, (icon_x, icon_y+2))
 
         font = ImageFont.truetype("/home/pi/project/Resource/Arial.ttf", 15)
         
