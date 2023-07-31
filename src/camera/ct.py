@@ -76,31 +76,31 @@ faceMesh = FaceMeshDetector()
 rgb_depth = RGB_Depth()
 
 
-
 def calculate_rotation_angle(m, n):
-    
     y = 640
     x = 480
     
     # 中心
     center_x = x / 2
     center_y = y / 2
-    
 
     # diff
     delta_x = m - center_x
     delta_y = n - center_y
-    angle_x = math.atan(delta_x/ x)
-    angle_y = math.atan(delta_y/ y)
-    angle_x = math.degrees(angle_x)/2
-    angle_y = math.degrees(angle_y)/2
-    if math.fabs(angle_x) < 0.1 or math.fabs(angle_y) < 0.1:
-        return [0, 0]
 
-    angle_degrees = [angle_x, angle_y]
-    
-    return angle_degrees
+    # 计算X轴的弧度值并限制在[-pi/2, pi/2]范围内
+    angle_x = math.atan(delta_x / 480)
+    angle_x = max(-math.pi / 2, min(angle_x, math.pi / 2))
 
+    # 计算Y轴的弧度值并限制在[-pi/2, pi/2]范围内
+    angle_y = math.atan(delta_y / 640)
+    angle_y = max(-math.pi / 2, min(angle_y, math.pi / 2))
+
+    # 弧度转换为角度
+    angle_x_degrees = math.degrees(angle_x) * 1.5
+    angle_y_degrees = math.degrees(angle_y)* 1.5
+
+    return [angle_x_degrees, angle_y_degrees]
 
 
 def get_angle_offset(face_landmarks_list):

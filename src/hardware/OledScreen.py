@@ -31,4 +31,3 @@ print("OledScreen.py: OledScreen initialized")
 def clear():
     # pass
     draw.rectangle((0,0,width,height), outline=0, fill=0)
-    print("OledScreen.py: OledScreen cleared")

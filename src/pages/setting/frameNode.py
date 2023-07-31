@@ -51,7 +51,7 @@ class FrameNode(node.Node):
     def onRotary(self, rotaryValue: int):
         print(rotaryValue)
         OledScreen.clear()
-        subAngle = 1024 / 20
+        subAngle = 1024 / 100
         index = int(rotaryValue / subAngle) + 1
         self.framePage.frame = index
         self.framePage.showText()

@@ -5,6 +5,7 @@ from src.storage import readAndWrite
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
+import src.multiprocessHost as MultiprocessHost
 
 class FaceTempPage(page.Page):
     def __init__(self):
@@ -16,8 +17,8 @@ class FaceTempPage(page.Page):
     def showText(self, offset: int = 0):
         # if self.prevTemp == hardware.Temp_humidity.tempValue and self.prevHumid == hardware.Temp_humidity.humidityValue:
         #     return
-        self.prevTemp = 0
-        self.frame = hardware.Temp_humidity.humidityValue
+        self.prevTemp = MultiprocessHost.Ftemp.value
+        self.frame = MultiprocessHost.frame.value
         yoffset = -9
         offset = -10
         OledScreen.clear()

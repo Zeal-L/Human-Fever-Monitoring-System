@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Optional
-from src.pages import page
+from src.pages import page, dynamicPage
 from src.hardware import OledScreen
 from PIL import Image
 from PIL import ImageDraw
@@ -15,7 +15,9 @@ class Node(page.Page):
         self.currentPage = -1
     
     def onButton(self) -> None:
-        if isinstance(self.pages[self.currentPage], Node):
+        if isinstance(self.pages[self.currentPage], dynamicPage.DPage):
+            self.pages[self.currentPage].onButton()
+        elif isinstance(self.pages[self.currentPage], Node):
             print("mainPage onButton issubclass")
             OledScreen.clear()
             page.currentPage = self.pages[self.currentPage]
@@ -70,21 +72,22 @@ def NodeScreen(iconPath: str, text: str, offset: int = 0):
 
 def ErrorScreen(text: str):
     icon = Image.open("/home/pi/project/Resource/error.png") 
-    icon.thumbnail((OledScreen.width // 6, OledScreen.height - 50)) 
+    icon.thumbnail((OledScreen.width // 4, OledScreen.height - 40)) 
     icon_width, icon_height = icon.size
     icon_x = (OledScreen.width - icon_width) // 2
-    icon_y = (OledScreen.height - icon_height) // 2 - 20
+    icon_y = (OledScreen.height - icon_height) // 2 + 10
     OledScreen.image.paste(icon, (icon_x, icon_y))
     font = ImageFont.load_default()
     error_text_lines = textwrap.wrap(text,20)
     text_height = sum(OledScreen.draw.textsize(line, font=font)[1] for line in error_text_lines)
-    text_position = ((OledScreen.width - icon_width) // 2 + icon_width, OledScreen.height - text_height - 15)
-
+    text_width = max(OledScreen.draw.textsize(line, font=font)[0] for line in error_text_lines)
+    text_position = ((OledScreen.width) // 2 - text_width // 2, 0)
+    
     for line in error_text_lines:
         text_width, text_height = OledScreen.draw.textsize(line, font=font)
-        line_position = (10, text_position[1])
+        line_position = (text_position[0], text_position[1])
         OledScreen.draw.text(line_position, line, font=font, fill=1)
-        text_position = (10, text_position[1] + text_height)
+        text_position = (text_position[0], text_position[1] + text_height)
 
 
 def showErrorScreen(text: str):

@@ -9,7 +9,7 @@ import src.multiprocessHost as MultiprocessHost
 
 # change to class
 class Temp_humidity:
-    pin = 4
+    pin = 7
     tempValue = 0
     humidityValue = 0
     lastTime = time.monotonic_ns() - 3 * 10**9
@@ -125,7 +125,7 @@ class Button:
         # print("Button: ", Button.value)
                 
 class Switch:
-    pin = 7
+    pin = 4
     value = True
     
     lastTime = time.monotonic_ns()
@@ -154,22 +154,18 @@ class Servo:
         self.servo = AngularServo(self.pin, pin_factory=self.factory, min_pulse_width=0.0006, max_pulse_width=0.0023)
     
     def setAngle(self, angle):
-        # print("servo angle: ", self.currentAngle)
-        if self.currentAngle +1 == angle or self.currentAngle -1 == angle:
-            return
+        print("servo angle: ", self.currentAngle)
+        # if self.currentAngle +1 == angle or self.currentAngle -1 == angle:
+        #     return
         angle = angle if angle <= self.maxAngle else self.maxAngle
         angle = angle if angle >= self.minAngle else self.minAngle
         self.servo.angle = angle
         self.currentAngle = angle
+        
         # print("servo angle: ", self.servo.angle)
 
     def getAngle(self):
         return self.currentAngle
-        
-    def __del__(self):
-        # self.servo.angle = 0
-        # self.factory.close()
-        print("servo close")
 
 class PTZ:
     x_servo_pin = 17
@@ -202,13 +198,18 @@ class PTZ:
         PTZ.x_servo.setAngle(xAngle)
         PTZ.y_servo.setAngle(yAngle)
         
+        # MultiprocessHost.servoX.value = xAngle
+        # MultiprocessHost.servoY.value = yAngle
+        
     @staticmethod
     def setXAngle(angle):
         PTZ.x_servo.setAngle(angle)
+        MultiprocessHost.servoX.value = angle
     
     @staticmethod
     def setYAngle(angle):
         PTZ.y_servo.setAngle(angle)
+        MultiprocessHost.servoY.value = angle
 
 class Buzzer:
     BuzzerPin = 6

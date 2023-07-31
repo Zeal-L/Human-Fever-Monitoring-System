@@ -6,6 +6,7 @@ from src.camera.faceMesh import FaceMeshDetector
 from src.camera.rgb_depth import RGB_Depth
 from src.hardware import hardware
 import math
+import datetime as Datetime
 # from thermal import Thermal
 # from faceMesh import FaceMeshDetector
 # from rgb_depth import RGB_Depth
@@ -38,14 +39,21 @@ class Camera:
     
     
     @staticmethod
-    def run(Rtemp, frame, Ftemp):
+    def run(Rtemp, frame, Ftemp, initComplete):
         Camera.setup()
         print("Rtemp", Rtemp, "frame", frame, "Ftemp", Ftemp)
+        completed = False
+        lostTime = time.time()
         while True:
-            
+            print("running")
+            # print time
+            print(Datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             _, thermal_data = Camera.thermal.grab()
             color_image, depth_data = Camera.rgb_depth.grab()
             face_landmarks_list = Camera.faceMesh.grab(color_image)
+            if completed == False:
+                initComplete.value = True
+                completed = True
             aligned_thermal_data = cv2.warpPerspective(
                 thermal_data, Camera.M, (color_image.shape[1], color_image.shape[0])
             )
@@ -57,12 +65,19 @@ class Camera:
                 # if Camera.face_T > 35:
                 #     print("Warning")
                 #     _send_email("abc982210694@gmail.com", {"header": "Warning", "body": "The temperature is {:.2f} C".format(Camera.face_T)}, image=color_image)
-
-                Ftemp.value = Camera.face_T
+                currentTemp = Camera.face_T
+                averageTemp = Ftemp.value
+                averageTemp = averageTemp * frame.value + currentTemp
+                averageTemp /= frame.value + 1
+                Ftemp.value = averageTemp
                 frame.value += 1
+                lostTime = time.time()
             else:
-                Ftemp.value = 0
-                frame.value = 0
+                print(time.time()-lostTime)
+                if time.time() - lostTime > 5:
+                    hardware.PTZ.setAngle(0, 0)
+                    Ftemp.value = 0
+                    frame.value = 0
 
 import time
 from email.header import Header, decode_header

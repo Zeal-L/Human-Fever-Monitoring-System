@@ -6,7 +6,7 @@ from src.pages import page, node,romTempPage, faceTempPage, exportNode, servoNod
 class mainPage(node.Node):
     def __init__(self):
         super().__init__()
-        self.pages = [exportNode.ExportNode(self),servoNode.ServoNode(self),faceTempPage.FaceTempPage(), romTempPage.RomTempPage(),settingPage.SettingNode(self),lockNode.LockNode(self)]
+        self.pages = [exportNode.ExportNode(self),servoNode.ServoNode(self),faceTempPage.FaceTempPage(), romTempPage.RomTempPage(),settingPage.SettingNode(self)]
         self.pages.reverse()
         pass
 
