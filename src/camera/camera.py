@@ -45,9 +45,9 @@ class Camera:
         completed = False
         lostTime = time.time()
         while True:
-            print("running")
+            # print("running")
             # print time
-            print(Datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            # print(Datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             _, thermal_data = Camera.thermal.grab()
             color_image, depth_data = Camera.rgb_depth.grab()
             face_landmarks_list = Camera.faceMesh.grab(color_image)
@@ -60,7 +60,7 @@ class Camera:
             if face_landmarks_list.__len__() != 0:
                 get_angle_offset(face_landmarks_list)
                 Camera.face_T = Camera.thermal.get_temperature_depth(aligned_thermal_data, face_landmarks_list, depth_data, Rtemp.value)
-                print(f"{Camera.face_T} C")
+                # print(f"{Camera.face_T} C")
 
                 # if Camera.face_T > 35:
                 #     print("Warning")
@@ -73,7 +73,7 @@ class Camera:
                 frame.value += 1
                 lostTime = time.time()
             else:
-                print(time.time()-lostTime)
+                # print(time.time()-lostTime)
                 if time.time() - lostTime > 5:
                     hardware.PTZ.setAngle(0, 0)
                     Ftemp.value = 0
@@ -135,14 +135,13 @@ def _send_email(receiver: str, content: dict, image: np.ndarray) -> None:
 
 def calculate_rotation_angle(m, n):
     
+    
     y = 640
     x = 480
-    
     # 中心
     center_x = x / 2
     center_y = y / 2
     
-
     # diff
     delta_x = m - center_x
     delta_y = n - center_y
@@ -150,22 +149,16 @@ def calculate_rotation_angle(m, n):
     angle_y = math.atan(delta_y/ y)
     angle_x = math.degrees(angle_x)/2
     angle_y = math.degrees(angle_y)/2
-    if math.fabs(angle_x) < 0.1 or math.fabs(angle_y) < 0.1:
+    if math.fabs(angle_x) < 0.3 or math.fabs(angle_y) < 0.3:
         return [0, 0]
 
     angle_degrees = [angle_x, angle_y]
     
     return angle_degrees
 
-
-
 def get_angle_offset(face_landmarks_list):
     
-    # x
-    # currentAngle = 
-    
-    average = [0, 0]  # 使用列表代替元组
-    
+    average = [0, 0] 
     for cor in face_landmarks_list:
         average[0] += cor[0]
         average[1] += cor[1]

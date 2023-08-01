@@ -154,7 +154,7 @@ class Servo:
         self.servo = AngularServo(self.pin, pin_factory=self.factory, min_pulse_width=0.0006, max_pulse_width=0.0023)
     
     def setAngle(self, angle):
-        print("servo angle: ", self.currentAngle)
+        # print("servo angle: ", self.currentAngle)
         # if self.currentAngle +1 == angle or self.currentAngle -1 == angle:
         #     return
         angle = angle if angle <= self.maxAngle else self.maxAngle

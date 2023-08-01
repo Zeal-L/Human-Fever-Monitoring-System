@@ -59,11 +59,10 @@ class ExportNode(dynamicPage.DPage):
     def onButton(self) -> None:
         # print("exportNode onButton") as red
         print("\033[31mexportNode onButton\033[0m")
-        if lsusb() == "Usb not found":
+        if lsusb() == None:
             node.showErrorScreen("Usb not found")
-
         else:
-            node.showErrorScreen("exporting")
+            node.showOKScreen("exporting")
             
         time.sleep(2)
         page.currentPage = self.prevNode

@@ -96,3 +96,30 @@ def showErrorScreen(text: str):
     OledScreen.disp.image(OledScreen.image)
     OledScreen.disp.display()
     time.sleep(1)
+    
+def OKScreen(text: str):
+    icon = Image.open("/home/pi/project/Resource/ok.png") 
+    icon.thumbnail((OledScreen.width // 4, OledScreen.height - 40)) 
+    icon_width, icon_height = icon.size
+    icon_x = (OledScreen.width - icon_width) // 2
+    icon_y = (OledScreen.height - icon_height) // 2 + 10
+    OledScreen.image.paste(icon, (icon_x, icon_y))
+    font = ImageFont.load_default()
+    error_text_lines = textwrap.wrap(text,20)
+    text_height = sum(OledScreen.draw.textsize(line, font=font)[1] for line in error_text_lines)
+    text_width = max(OledScreen.draw.textsize(line, font=font)[0] for line in error_text_lines)
+    text_position = ((OledScreen.width) // 2 - text_width // 2, 0)
+    
+    for line in error_text_lines:
+        text_width, text_height = OledScreen.draw.textsize(line, font=font)
+        line_position = (text_position[0], text_position[1])
+        OledScreen.draw.text(line_position, line, font=font, fill=1)
+        text_position = (text_position[0], text_position[1] + text_height)
+
+
+def showOKScreen(text: str):
+    OledScreen.clear()
+    OKScreen(text)
+    OledScreen.disp.image(OledScreen.image)
+    OledScreen.disp.display()
+    time.sleep(1)
