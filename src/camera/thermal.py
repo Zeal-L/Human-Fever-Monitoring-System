@@ -60,7 +60,7 @@ class Thermal:
 
         # mm -> cm
         avg_depth = avg_depth / 10
-        print(f"Depth: {avg_depth} cm")
+        # print(f"Depth: {avg_depth} cm")
         
         # data = str(round(avg_temperature, 2)) + ' ' + str(round(avg_depth, 2))
         # with open('data.txt', 'a') as f:
@@ -70,10 +70,12 @@ class Thermal:
         # k = 0.01
         # avg_temperature = avg_temperature + avg_depth * (0.02 + k * (Rtemp - 22))
         
+        print(f"Temperature: {avg_temperature}, Rtemp: {Rtemp}, Depth: {avg_depth}")
+        
         stand_temp = self.standardize_temperature(avg_temperature, avg_depth)
+        
         k = -0.1
         env_temp_offset =  k * (Rtemp - 22)
-        
         final_temp = stand_temp + env_temp_offset
         
         return round(final_temp, 2)

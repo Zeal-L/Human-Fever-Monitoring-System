@@ -39,15 +39,18 @@ class Camera:
     
     
     @staticmethod
-    def run(Rtemp, frame, Ftemp, initComplete):
+    def run(Rtemp, frame, Ftemp, initComplete, isHydrated):
         Camera.setup()
-        print("Rtemp", Rtemp, "frame", frame, "Ftemp", Ftemp)
+        print("Rtemp", Rtemp.value, "frame", frame.value, "Ftemp", Ftemp.value, "initComplete", initComplete.value, "isHydrated", isHydrated.value == True)
         completed = False
         lostTime = time.time()
+        tempHistory = []
         while True:
-            # print("running")
-            # print time
-            # print(Datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            if isHydrated.value == True:
+                print("isHydrated")
+                time.sleep(0.3)
+                continue
+            # print("Rtemp", Rtemp.value, "frame", frame.value, "Ftemp", Ftemp.value, "initComplete", initComplete.value, "isHydrated", isHydrated.value == True)
             _, thermal_data = Camera.thermal.grab()
             color_image, depth_data = Camera.rgb_depth.grab()
             face_landmarks_list = Camera.faceMesh.grab(color_image)
@@ -65,19 +68,21 @@ class Camera:
                 # if Camera.face_T > 35:
                 #     print("Warning")
                 #     _send_email("abc982210694@gmail.com", {"header": "Warning", "body": "The temperature is {:.2f} C".format(Camera.face_T)}, image=color_image)
-                currentTemp = Camera.face_T
-                averageTemp = Ftemp.value
-                averageTemp = averageTemp * frame.value + currentTemp
-                averageTemp /= frame.value + 1
-                Ftemp.value = averageTemp
+                # print(Camera.face_T)
+                tempHistory.append(Camera.face_T)
+                tempHistory = sorted(tempHistory)
+                start = int(len(tempHistory) * 0.20)
+                end = int(len(tempHistory) * 0.70 + 1)
+                tempHistory = tempHistory[start:end]
+                Ftemp.value = sum(tempHistory) / len(tempHistory)
                 frame.value += 1
                 lostTime = time.time()
             else:
-                # print(time.time()-lostTime)
                 if time.time() - lostTime > 5:
                     hardware.PTZ.setAngle(0, 0)
                     Ftemp.value = 0
                     frame.value = 0
+                    tempHistory = []
 
 import time
 from email.header import Header, decode_header
@@ -149,7 +154,7 @@ def calculate_rotation_angle(m, n):
     angle_y = math.atan(delta_y/ y)
     angle_x = math.degrees(angle_x)/2
     angle_y = math.degrees(angle_y)/2
-    if math.fabs(angle_x) < 0.3 or math.fabs(angle_y) < 0.3:
+    if math.fabs(angle_x) < 0.1 or math.fabs(angle_y) < 0.1:
         return [0, 0]
 
     angle_degrees = [angle_x, angle_y]

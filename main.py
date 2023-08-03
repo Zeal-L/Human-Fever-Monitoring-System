@@ -26,7 +26,7 @@ if __name__ == "__main__":
     count = 0
     stoping = False
     fristStart = True
-    process = MultiprocessHost.multiprocessing.Process(target=camera.Camera.run, args=(MultiprocessHost.Rtemp, MultiprocessHost.frame, MultiprocessHost.Ftemp, MultiprocessHost.initComplete,))
+    process = MultiprocessHost.multiprocessing.Process(target=camera.Camera.run, args=(MultiprocessHost.Rtemp, MultiprocessHost.frame, MultiprocessHost.Ftemp, MultiprocessHost.initComplete,MultiprocessHost.isHydrated))
     process.start()
     
     
@@ -44,28 +44,26 @@ if __name__ == "__main__":
         while True:
             if MultiprocessHost.initComplete.value:
                 if fristStart:
+                    print("fristStart")
                     hardware.Buzzer.start(0.3)
                     hardware.Buzzer.start(0.1)
                     fristStart = False
-                    # process.start()
-                # print("Rtemp", MultiprocessHost.Rtemp.value, "frame", MultiprocessHost.frame.value, "Ftemp", MultiprocessHost.Ftemp.value)
-                if  hardware.Switch.value:
+                if  hardware.Switch.value and not MultiprocessHost.isHydrated.value:
                     stoping = False
-                    timeNow = time.monotonic_ns()
                     [handWare.loadValue() for handWare in handWares]
                     page.currentPage.onRotary(hardware.RotaryAngle.value)
                     if hardware.Button.value:
                         page.currentPage.onButton()
-                    timeCost = time.monotonic_ns() - timeNow
                     hardware.screeBacklight.load()
                     totalFrame = MultiprocessHost.frame.value/int(readAndWrite.ReadAndWrite.getValue("frame"))
+                    # hardware.screeBacklight.backLight["type"] = hardware.backLightType.error
+                    if MultiprocessHost.Ftemp.value > 38:
+                        hardware.screeBacklight.backLight["type"] = hardware.backLightType.error
+                    else:
+                        hardware.Buzzer.off()
+                        hardware.screeBacklight.backLight["type"] = hardware.backLightType.normal
                     grove_rgb_lcd.setText_norefresh("temp = %.02f C  progress = %.00f%%"%(MultiprocessHost.Ftemp.value, totalFrame*100))
-                    # if totalFrame > 1:
-                    #     MultiprocessHost.frame.value = 0
-                    #     MultiprocessHost.Ftemp.value = 0
-                    #     hardware.PTZ.setAngle(0,0)
                 else:
-                    fristStart = True
                     if not stoping:
                         stoping = True
                         cleanup()

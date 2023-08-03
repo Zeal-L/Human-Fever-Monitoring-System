@@ -17,7 +17,7 @@ class Temp_humidity:
     
     @staticmethod
     def setup():
-        pass
+        Temp_humidity.loadValue()
     
     @staticmethod
     def loadValue():
@@ -140,6 +140,7 @@ class Switch:
             try:
                 Switch.value = grovepi.digitalRead(Switch.pin)==1
                 Switch.lastTime = time.monotonic_ns()
+                MultiprocessHost.isHydrated.value = not Switch.value
             except IOError:
                 print ("Error")
 
@@ -249,9 +250,9 @@ class backLightType(Enum):
 class screeBacklight():
     
     backLight = {
-        "r": 0,
-        "g": 0,
-        "b": 0,
+        "r": 255,
+        "g": 255,
+        "b": 255,
         "type": backLightType.normal
     }
 
