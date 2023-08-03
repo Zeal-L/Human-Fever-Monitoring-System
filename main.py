@@ -6,6 +6,7 @@ from src.hardware import OledScreen, grove_rgb_lcd
 from src.storage import readAndWrite
 from src.pages import romTempPage as romTempPage
 from src.pages import mainPage as mainPage
+from src.pages import lockedPage as LockedPage
 from src.pages import page as page
 from src.camera import camera
 import src.multiprocessHost as MultiprocessHost
@@ -57,9 +58,12 @@ if __name__ == "__main__":
                     hardware.screeBacklight.load()
                     totalFrame = MultiprocessHost.frame.value/int(readAndWrite.ReadAndWrite.getValue("frame"))
                     # hardware.screeBacklight.backLight["type"] = hardware.backLightType.error
-                    if MultiprocessHost.Ftemp.value > 38:
+                    
+                    if MultiprocessHost.Ftemp.value > 30 and totalFrame >= 1 and hardware.screeBacklight.backLight["type"] != hardware.backLightType.error:
                         hardware.screeBacklight.backLight["type"] = hardware.backLightType.error
-                    else:
+                        page.currentPage = LockedPage.LockedPage()
+                        MultiprocessHost.frame.value = 0
+                    elif not isinstance(page.currentPage, LockedPage.LockedPage):
                         hardware.Buzzer.off()
                         hardware.screeBacklight.backLight["type"] = hardware.backLightType.normal
                     grove_rgb_lcd.setText_norefresh("temp = %.02f C  progress = %.00f%%"%(MultiprocessHost.Ftemp.value, totalFrame*100))

@@ -7,6 +7,7 @@ from src.camera.rgb_depth import RGB_Depth
 from src.hardware import hardware
 import math
 import datetime as Datetime
+from src.storage import saveImage
 # from thermal import Thermal
 # from faceMesh import FaceMeshDetector
 # from rgb_depth import RGB_Depth
@@ -62,8 +63,10 @@ class Camera:
             )
             if face_landmarks_list.__len__() != 0:
                 get_angle_offset(face_landmarks_list)
-                Camera.face_T = Camera.thermal.get_temperature_depth(aligned_thermal_data, face_landmarks_list, depth_data, Rtemp.value)
-                # print(f"{Camera.face_T} C")
+                (Camera.face_T, avg_depth) = Camera.thermal.get_temperature_depth(aligned_thermal_data, face_landmarks_list, depth_data, Rtemp.value)
+                if avg_depth < 10 or avg_depth > 300:
+                    continue
+                print(f"{Camera.face_T} C")
 
                 # if Camera.face_T > 35:
                 #     print("Warning")
@@ -71,11 +74,12 @@ class Camera:
                 # print(Camera.face_T)
                 tempHistory.append(Camera.face_T)
                 tempHistory = sorted(tempHistory)
-                start = int(len(tempHistory) * 0.20)
-                end = int(len(tempHistory) * 0.70 + 1)
+                start = int(len(tempHistory) * 0.25)
+                end = int(len(tempHistory) * 0.75 + 1)
                 tempHistory = tempHistory[start:end]
                 Ftemp.value = sum(tempHistory) / len(tempHistory)
                 frame.value += 1
+                saveImage.saveImage.saveImg(color_image,Ftemp.value)
                 lostTime = time.time()
             else:
                 if time.time() - lostTime > 5:
@@ -139,22 +143,13 @@ def _send_email(receiver: str, content: dict, image: np.ndarray) -> None:
 
 
 def calculate_rotation_angle(m, n):
-    
-    
+
     y = 640
     x = 480
     # 中心
-    center_x = x / 2
-    center_y = y / 2
-    
-    # diff
-    delta_x = m - center_x
-    delta_y = n - center_y
-    angle_x = math.atan(delta_x/ x)
-    angle_y = math.atan(delta_y/ y)
-    angle_x = math.degrees(angle_x)/2
-    angle_y = math.degrees(angle_y)/2
-    if math.fabs(angle_x) < 0.1 or math.fabs(angle_y) < 0.1:
+    angle_x = math.degrees(math.atan((m - x / 2)/ x))/2
+    angle_y = math.degrees(math.atan(( n - y / 2)/ y))/2
+    if math.fabs(angle_x) < 0.01 and math.fabs(angle_y) < 0.01:
         return [0, 0]
 
     angle_degrees = [angle_x, angle_y]

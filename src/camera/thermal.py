@@ -73,18 +73,21 @@ class Thermal:
         print(f"Temperature: {avg_temperature}, Rtemp: {Rtemp}, Depth: {avg_depth}")
         
         stand_temp = self.standardize_temperature(avg_temperature, avg_depth)
-        
-        k = -0.1
+        # fitted_temperature = 3.55779053925635e-05 * distance1**2 + -0.01761694145549804 * distance1 + 33.63784631681277
+                # processed_temperature = 38 - ( temperature - fitted_temperature) 
+                
+        k = 0.563 if Rtemp < 22 else -0.5
         env_temp_offset =  k * (Rtemp - 22)
         final_temp = stand_temp + env_temp_offset
         
-        return round(final_temp, 2)
+        return (round(final_temp, 2), avg_depth)
     
     def standardize_temperature(self, temperature, distance):
         # 计算拟合线的值
-        fitted_temperature = 7.02750929626956e-06 * distance**2 + -0.0080872230503977 * distance + 34.60362646260583
+        x = distance
+        fitted_temperature = 3.603211147506839e-05 * distance**2 + -0.017776493403849375 * distance + 35.65183573711095
         # 计算标准温度
-        return 37.3 + (fitted_temperature - temperature)
+        return 38 + (fitted_temperature - temperature) 
 
     def to_celsius(self, data):
         return data / 100 - 273.15

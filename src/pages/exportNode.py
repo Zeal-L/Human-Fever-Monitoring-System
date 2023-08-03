@@ -30,7 +30,8 @@ class ExportNode(dynamicPage.DPage):
         text = "Usb not\nfound"
         device = lsusb()
         if device:
-            text = device['name'] + "\n" + device['size']
+            # print(device['children'][0]["mountpoint"].split("/")[-1])
+            text = device['children'][0]["mountpoint"].split("/")[-1] + "\n" + device['size']
 
         max_text_width = OledScreen.width - (icon_x + icon_width + 5 + offset)
         if OledScreen.draw.textsize(text, font=font)[0] > max_text_width:
@@ -61,10 +62,12 @@ class ExportNode(dynamicPage.DPage):
         print("\033[31mexportNode onButton\033[0m")
         if lsusb() == None:
             node.showErrorScreen("Usb not found")
+            time.sleep(2)
         else:
             node.showOKScreen("exporting")
-            
-        time.sleep(2)
+            # copy /home/pi/project/src/storage/fever to file
+            usbPath = lsusb()['children'][0]["mountpoint"]
+            subprocess.call(['cp', '-r', '/home/pi/project/src/storage/fever', usbPath])
         page.currentPage = self.prevNode
 
 def lsusb():

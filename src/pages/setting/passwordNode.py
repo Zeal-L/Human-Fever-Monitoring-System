@@ -82,4 +82,3 @@ class PasswordNode(node.Node):
         self.passwordPage.showText()
     
     
-        
