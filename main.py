@@ -59,7 +59,7 @@ if __name__ == "__main__":
                     totalFrame = MultiprocessHost.frame.value/int(readAndWrite.ReadAndWrite.getValue("frame"))
                     # hardware.screeBacklight.backLight["type"] = hardware.backLightType.error
                     
-                    if MultiprocessHost.Ftemp.value > 30 and totalFrame >= 1 and hardware.screeBacklight.backLight["type"] != hardware.backLightType.error:
+                    if MultiprocessHost.Ftemp.value > 38 and totalFrame >= 1 and hardware.screeBacklight.backLight["type"] != hardware.backLightType.error:
                         hardware.screeBacklight.backLight["type"] = hardware.backLightType.error
                         page.currentPage = LockedPage.LockedPage()
                         MultiprocessHost.frame.value = 0

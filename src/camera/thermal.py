@@ -85,9 +85,9 @@ class Thermal:
     def standardize_temperature(self, temperature, distance):
         # 计算拟合线的值
         x = distance
-        fitted_temperature = 3.603211147506839e-05 * distance**2 + -0.017776493403849375 * distance + 35.65183573711095
+        fitted_temperature = 3.603211147506769e-05 * x**2 + -0.01777649340384927 * x + 33.651835737110936
         # 计算标准温度
-        return 38 + (fitted_temperature - temperature) 
+        return (37 - fitted_temperature) + temperature
 
     def to_celsius(self, data):
         return data / 100 - 273.15
