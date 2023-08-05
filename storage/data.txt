@@ -1,4 +1,4 @@
 password: 0000
 ServoAngle: 56
 sleep: 27
-frame: 44
+frame: 8

@@ -67,7 +67,7 @@ class ExportNode(dynamicPage.DPage):
             node.showOKScreen("exporting")
             # copy /home/pi/project/src/storage/fever to file
             usbPath = lsusb()['children'][0]["mountpoint"]
-            subprocess.call(['cp', '-r', '/home/pi/project/src/storage/fever', usbPath])
+            subprocess.call(['mv', '-r', '/home/pi/project/src/storage/fever', usbPath])
         page.currentPage = self.prevNode
 
 def lsusb():
